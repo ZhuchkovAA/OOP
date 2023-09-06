@@ -81,11 +81,6 @@ public:
             "\nGPA: " << GPA << "\n";
     };
 
-    friend istream& operator>>(istream& input, Student& student) {
-        input >> student.id >> student.firstName >> student.lastName >> student.age >> student.GPA;
-        return input;
-    }
-
     void writeToFile(string nameFile) {
         ofstream outputFile(nameFile, ios::app);
 
@@ -113,7 +108,7 @@ public:
             return;
         }
         
-        for (int i = 0; i < startRow * 5; i++) { getline(inputFile, line); }
+        for (int i = 0; i < startRow; i++) { getline(inputFile, line); }
 
         getline(inputFile, line);
         id = stoi(line);
@@ -130,72 +125,105 @@ public:
     }
 };
 
+class Group {
+private:
+    vector<Student> listStudents;
+
+public:
+    void addStudent() {
+        Student newStudent;
+
+        newStudent.initStudent(createId());
+        listStudents.push_back(newStudent);
+    };
+
+    void printList() {
+        for_each(listStudents.begin(), listStudents.end(), [](Student& item) {
+            item.printInfo();
+        });
+    }
+
+    void writeListToFile() {
+        string nameFile;
+
+        cout << "Input name File: ";
+        cin >> nameFile;
+        checkNameFile(nameFile);
+
+        ofstream outputFile(nameFile);
+
+        if (!outputFile) { cerr << "\nError open. Try again\n" << endl; return; }
+
+        outputFile << "";
+
+        for_each(listStudents.begin(), listStudents.end(), [nameFile](Student& item) {
+            item.writeToFile(nameFile);
+        });
+    }
+
+    void readListFromFile() {
+        Student newStudent;
+        string nameFile;
+        string line;
+        int lineCount = 0;
+
+        listStudents.clear();
+
+        cout << "Input name File: ";
+        cin >> nameFile;
+        checkNameFile(nameFile);
+
+        ifstream inputFile(nameFile);
+        if (!inputFile) { cerr << "\nError open. Try again\n" << endl; return; }
+
+        while (getline(inputFile, line)) { lineCount++; }
+
+        for (int i = 0; i < lineCount / 5; i++) {
+            newStudent.readFromFile(nameFile, i * 5);
+            listStudents.push_back(newStudent);
+        }
+    }
+
+    void removeList() {
+        listStudents.clear();
+    }
+};
+
 int main()
 {
     int state = -1;
-    vector<Student> listStudents;
-    string nameFile;
-    Student newStudent;
+    Group group;
 
     while (state) {
-        cout << "\n1 - Add Student\n2 - Print Students Info\n3 - Write to File\n4 - Read from File\n5 - Clear listStudents\n0 - Exit\nEnter number: ";
+        cout << "\n1 - Add Student\n2 - Print listStudents\n3 - Write to File\n4 - Read from File\n5 - Clear listStudents\n0 - Exit\nEnter number: ";
         cin >> state;
         checkCin(&state, "Enter number : ");
 
         switch (state) {
             case 1: {
-                newStudent.initStudent(createId());
-                listStudents.push_back(newStudent);
+                group.addStudent();
                 break;
             }
             case 2: {
-                for_each(listStudents.begin(), listStudents.end(), [](Student& item) {
-                    item.printInfo();
-                    });
+                group.printList();
                 break; 
             }
             case 3: {
-                cout << "Input name File: ";
-                cin >> nameFile;
-                checkNameFile(nameFile);
- 
-                ofstream outputFile(nameFile);
-
-                if (!outputFile) { cerr << "\nError open. Try again\n" << endl; break; }
-
-                outputFile << "";
-
-                for_each(listStudents.begin(), listStudents.end(), [nameFile](Student& item) {
-                    item.writeToFile(nameFile);
-                });
+                group.writeListToFile();
                 break;
             }
             case 4: {
-                listStudents.clear();
-
-                int lineCount = 0;
-                string line;
-
-                cout << "Input name File: ";
-                cin >> nameFile;
-                checkNameFile(nameFile);
-                ifstream inputFile(nameFile);
-                if (!inputFile) { cerr << "\nError open. Try again\n" << endl; break; }
-
-                while (getline(inputFile, line)) { lineCount++; }
-
-                for (int i = 0; i < lineCount / 5; i++) {
-                    newStudent.readFromFile(nameFile, i);
-                    listStudents.push_back(newStudent);
-                }
+                group.readListFromFile();
                 break; 
             }
             case 5: {
-                listStudents.clear();
+                group.removeList();
+                break;
             }
             default:
                 break;
             }
         }
+
     return 0;
 }

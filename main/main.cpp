@@ -1,4 +1,6 @@
-﻿#include <iostream>
+﻿// del /s /q /f *.exe *.dll *.ncb *.sdf *.obj *.lib *.pdb *.ipch *.pch *.idb *.bsc *.exp *.ilk *.aps *.log *.tlog *.db
+
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <fstream>

@@ -1,5 +1,4 @@
 #include "Group.h"
-
 #include <algorithm>
 
 Group::Group() {

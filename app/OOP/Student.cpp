@@ -2,13 +2,12 @@
 
 using namespace std;
 
-Student::Student() {
-    int id = -1;
-    string firstName = "";
-    string lastName = "";
-    int age = -1;
-    double GPA = -1.0;
-}
+Student::Student():
+    id(-1),
+    firstName(""),
+    lastName(""),
+    age(-1),
+    GPA(-1.0){}
 
 void Student::initStudent(int idStudent) {
     id = idStudent;
@@ -20,12 +19,10 @@ void Student::initStudent(int idStudent) {
     cin >> lastName;
 
     cout << "Input age:\n";
-    cin >> age;
-    checkCin(&age, "Input age:");
+    while (!(cin >> age)) cinErr("Input age:");
 
     cout << "Input GPA:\n";
-    cin >> GPA;
-    checkCin(&GPA, "Input GPA:");
+    while (!(cin >> GPA)) cinErr("Input GPA:");
 };
 
 int Student::getId() {

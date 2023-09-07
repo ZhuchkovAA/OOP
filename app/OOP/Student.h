@@ -15,6 +15,7 @@ private:
 
 public:
     Student();
+    void setId(int idStudent);
     void initStudent(int idStudent);
     int getId();
     string getFirstName();

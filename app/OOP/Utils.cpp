@@ -6,11 +6,9 @@
 using namespace std;
 
 void cinErr(const string title) {
-    while (cin.fail()) {
-        cin.clear();
-        cin.ignore(32767, '\n');
-        cout << "\nError!\n" << title;
-    }
+    cin.clear();
+    cin.ignore(32767, '\n');
+    cout << "\nError!\n" << title;
 }
 
 void checkNameFile(string& nameFile) {

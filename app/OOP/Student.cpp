@@ -2,15 +2,20 @@
 
 using namespace std;
 
-Student::Student():
-    id(-1),
-    firstName(""),
-    lastName(""),
-    age(-1),
-    GPA(-1.0){}
+Student::Student() {
+    int id = -1;
+    string firstName = "";
+    string lastName = "";
+    int age = -1;
+    double GPA = -1.0;
+}
+
+void Student::setId(int idStudent) {
+    id = idStudent;
+}
 
 void Student::initStudent(int idStudent) {
-    id = idStudent;
+    setId(idStudent);
 
     cout << "Input firstname:\n";
     cin >> firstName;
@@ -60,7 +65,6 @@ void Student::writeToFile(string nameFile) {
     }
 
     outputFile <<
-        id << endl <<
         firstName << endl <<
         lastName << endl <<
         age << endl <<
@@ -80,8 +84,6 @@ void Student::readFromFile(string nameFile, int startRow = 0) {
 
     for (int i = 0; i < startRow; i++) { getline(inputFile, line); }
 
-    getline(inputFile, line);
-    id = stoi(line);
     getline(inputFile, line);
     firstName = line;
     getline(inputFile, line);

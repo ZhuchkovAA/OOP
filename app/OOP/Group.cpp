@@ -47,8 +47,6 @@ void Group::readListFromFile() {
     string line;
     int lineCount = 0;
 
-    listStudents.clear();
-
     cout << "Input name File: ";
     cin >> nameFile;
     checkNameFile(nameFile);
@@ -58,8 +56,9 @@ void Group::readListFromFile() {
 
     while (getline(inputFile, line)) { lineCount++; }
 
-    for (int i = 0; i < lineCount / 5; i++) {
-        newStudent.readFromFile(nameFile, i * 5);
+    for (int i = 0; i < lineCount / 4; i++) {
+        newStudent.readFromFile(nameFile, i * 4);
+        newStudent.setId(createIdStudent());
         listStudents.push_back(newStudent);
     }
 }

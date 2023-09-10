@@ -67,3 +67,7 @@ void Group_Zhuchkov::readListFromFile() {
 void Group_Zhuchkov::removeList() {
     listStudents.clear();
 }
+
+void Group_Zhuchkov::addHeadman() {
+    initHeadman(createIdStudent())
+}

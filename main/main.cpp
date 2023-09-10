@@ -11,6 +11,7 @@ using namespace std;
 #include "Utils.h"
 #include "Group_Zhuchkov.h"
 
+
 string checkType(void* value) {
     return typeid(value).name();
 }

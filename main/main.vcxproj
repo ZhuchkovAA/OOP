@@ -148,12 +148,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Group_Zhuchkov.cpp" />
+    <ClCompile Include="Headman_Zhuchkov.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Student_Zhuchkov.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Group_Zhuchkov.h" />
+    <ClInclude Include="Headman_Zhuchkov.h" />
     <ClInclude Include="Student_Zhuchkov.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>

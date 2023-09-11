@@ -2,9 +2,12 @@
 
 using namespace std;
 
-void Student_Zhuchkov::setId(int id) {
-    this-> id = id;
-}
+void Student_Zhuchkov::setId(int id) { this-> id = id; }
+void Student_Zhuchkov::setFirstName(string firstName) { this->firstName = firstName; };
+void Student_Zhuchkov::setLastName(string lastName) { this->lastName = lastName; };
+void Student_Zhuchkov::setAge(int age) { this->age = age; };
+void Student_Zhuchkov::setGpa(double GPA) { this->GPA = GPA; };
+void Student_Zhuchkov::setIsHeadman(bool isHeadman) { this->isHeadman = isHeadman; };
 
 void Student_Zhuchkov::initStudent(int idStudent) {
     setId(idStudent);
@@ -20,6 +23,8 @@ void Student_Zhuchkov::initStudent(int idStudent) {
 
     cout << "Введите средний балл:\n";
     while (!(cin >> GPA)) cinErr("Input GPA:");
+
+    isHeadman = false;
 };
 
 int Student_Zhuchkov::getId() {
@@ -42,6 +47,10 @@ double Student_Zhuchkov::getGpa() {
     return GPA;
 };
 
+bool Student_Zhuchkov::getIsHeadman() {
+    return isHeadman;
+};
+
 void Student_Zhuchkov::printInfo() {
     cout << "\n# " << id + 1 << "\nИмя: " << firstName <<
         "\nФамилия: " << lastName << "\nВозраст: " << age <<
@@ -57,6 +66,7 @@ void Student_Zhuchkov::writeToFile(string nameFile) {
     }
 
     outputFile <<
+        isHeadman << endl <<
         firstName << endl <<
         lastName << endl <<
         age << endl <<
@@ -65,7 +75,7 @@ void Student_Zhuchkov::writeToFile(string nameFile) {
     outputFile.close();
 }
 
-void Student_Zhuchkov::readFromFile(string nameFile, int startRow = 0) {
+void Student_Zhuchkov::readStudentFromFile(string nameFile) {
     string line;
     ifstream inputFile(nameFile);
 
@@ -74,8 +84,7 @@ void Student_Zhuchkov::readFromFile(string nameFile, int startRow = 0) {
         return;
     }
 
-    for (int i = 0; i < startRow; i++) { getline(inputFile, line); }
-
+    isHeadman = false;
     getline(inputFile, line);
     firstName = line;
     getline(inputFile, line);
@@ -87,3 +96,8 @@ void Student_Zhuchkov::readFromFile(string nameFile, int startRow = 0) {
 
     inputFile.close();
 }
+
+ifstream& operator>>(ifstream& input, Student_Zhuchkov& student) {
+    input >> student.id >> student.firstName >> student.lastName >> student.age >> student.GPA;
+    return input;
+};

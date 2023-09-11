@@ -6,8 +6,12 @@ private:
 	string phoneNumber;
 
 public:
+	Headman_Zhuchkov() : Student_Zhuchkov() {};
 	void initHeadman(int idStudent);
 	string getPhoneNumber();
-	void setPhoneNumber(string phoneNumberHeadman);
+	void setPhoneNumber(string phoneNumber);
+	void printInfo() override;
+	void writeToFile(string nameFile) override;
+	void readFromFile(string nameFile);
 };
 

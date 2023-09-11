@@ -50,6 +50,10 @@ int main()
             group.removeList();
             break;
         }
+        case 6: {
+            group.addHeadman();
+            break;
+        }
         default:
             break;
         }

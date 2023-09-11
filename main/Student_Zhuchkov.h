@@ -12,6 +12,7 @@ private:
     string lastName;
     int age;
     double GPA;
+    bool isHeadman;
 
 public:
     Student_Zhuchkov() {
@@ -20,6 +21,7 @@ public:
         this-> lastName = "";
         this-> age = -1;
         this-> GPA = -1;
+        this-> isHeadman = false;
     };
 
     Student_Zhuchkov(int id, string firstName, string lastName, int age, double GPA) {
@@ -28,6 +30,7 @@ public:
         this-> lastName = lastName;
         this-> age = age;
         this-> GPA = GPA;
+        this-> isHeadman = false;
     };
 
     int getId();
@@ -35,11 +38,19 @@ public:
     string getLastName();
     int getAge();
     double getGpa();
+    bool getIsHeadman();
 
-    void setId(int idStudent);
+    void setId(int id);
+    void setFirstName(string firstName);
+    void setLastName(string lastName);
+    void setAge(int age);
+    void setGpa(double GPA);
+    void setIsHeadman(bool isHeadman);
+
     void initStudent(int idStudent);
-    void printInfo();
-    void writeToFile(string nameFile);
-    void readFromFile(string nameFile, int startRow);
-};
+    virtual void printInfo();
+    virtual void writeToFile(string nameFile);
+    virtual void readStudentFromFile(string nameFile);
 
+    friend ifstream& operator>>(ifstream& input, Student_Kosov& student);
+};

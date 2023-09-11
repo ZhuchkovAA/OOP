@@ -6,16 +6,18 @@
 
 class Group_Zhuchkov {
 private:
-    vector<Student_Zhuchkov*> listStudents;
+    vector<shared_ptr<Student_Zhuchkov>> listStudents;
     
 public:
     Group_Zhuchkov();
     int createId();
+
     void addStudent();
+    void addHeadman();
+
     void printList();
     void writeListToFile();
     void readListFromFile();
     void removeList();
-    void addHeadman();
 };
 

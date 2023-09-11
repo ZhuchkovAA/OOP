@@ -1,7 +1,7 @@
 #pragma once
 #include "Student_Zhuchkov.h"
 
-class Headman_Zhuchkov : Student_Zhuchkov {
+class Headman_Zhuchkov : public Student_Zhuchkov {
 private: 
 	string phoneNumber;
 

@@ -3,7 +3,7 @@
 using namespace std;
 
 Student_Zhuchkov::Student_Zhuchkov() {
-    int id = -1;
+    int id = -1; 
     string firstName = "";
     string lastName = "";
     int age = -1;

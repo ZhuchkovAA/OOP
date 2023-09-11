@@ -1,6 +1,12 @@
 ﻿  Group_Zhuchkov.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.24.28314\include\memory(1441,1): error C2681: void *: недопустимый тип выражения для dynamic_cast
+C:\Users\Екатерина\Documents\GitHub\OOP\main\Group_Zhuchkov.cpp(16): message : выполняется компиляция ссылки на экземпляр шаблон функции "std::shared_ptr<Student_Zhuchkov> std::dynamic_pointer_cast<Student_Zhuchkov,void>(const std::shared_ptr<void> &) noexcept"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.24.28314\include\memory(1441,21): error C2789: "_Ptr": требуется инициализация объекта типа класса, квалифицированного как const
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.24.28314\include\memory(1441): message : см. объявление "_Ptr"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.24.28314\include\memory(1443,1): error C3536: _Ptr: не может использоваться до инициализации
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.24.28314\include\memory(1444,1): error C2440: <function-style-cast>: невозможно преобразовать "initializer list" в "std::shared_ptr<Student_Zhuchkov>"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.24.28314\include\memory(1444,1): message : Ни один конструктор не смог принять исходный тип, либо разрешение перегрузки конструктора неоднозначно
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.24.28314\include\memory(1444,1): error C2440: <function-style-cast>: невозможно преобразовать "initializer list" в "std::shared_ptr<Headman_Zhuchkov>"
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.24.28314\include\memory(1444,1): message : Ни один конструктор не смог принять исходный тип, либо разрешение перегрузки конструктора неоднозначно
   main.cpp
-  Student_Zhuchkov.cpp
-  Utils.cpp
   Создание кода...
-  main.vcxproj -> C:\Users\lesha\Documents\GitHub\OOP\main\Debug\main.exe

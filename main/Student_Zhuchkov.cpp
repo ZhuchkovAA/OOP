@@ -2,16 +2,8 @@
 
 using namespace std;
 
-Student_Zhuchkov::Student_Zhuchkov() {
-    int id = -1; 
-    string firstName = "";
-    string lastName = "";
-    int age = -1;
-    double GPA = -1.0;
-}
-
-void Student_Zhuchkov::setId(int idStudent) {
-    id = idStudent;
+void Student_Zhuchkov::setId(int id) {
+    this-> id = id;
 }
 
 void Student_Zhuchkov::initStudent(int idStudent) {
@@ -51,7 +43,7 @@ double Student_Zhuchkov::getGpa() {
 };
 
 void Student_Zhuchkov::printInfo() {
-    cout << "\nid: " << id << "\nИмя: " << firstName <<
+    cout << "\n# " << id + 1 << "\nИмя: " << firstName <<
         "\nФамилия: " << lastName << "\nВозраст: " << age <<
         "\nСредний балл: " << GPA << "\n";
 };

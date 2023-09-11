@@ -6,7 +6,7 @@
 
 class Group_Zhuchkov {
 private:
-    vector<shared_ptr<void>> listStudents;
+    vector<Student_Zhuchkov*> listStudents;
     
 public:
     Group_Zhuchkov();

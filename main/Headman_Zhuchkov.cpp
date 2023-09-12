@@ -30,29 +30,29 @@ void Headman_Zhuchkov::writeToFile(string nameFile) {
     }
 
     outputFile <<
-        getIsHeadman() << endl <<
+        getIsHeadman() <<  <<
         getFirstName() << endl <<
         getLastName() << endl <<
         getAge() << endl <<
         getGpa() << endl <<
-        getPhoneNumber() << endl;
+        getPhoneNumber();
 
     outputFile.close();
 };
 
-ifstream& operator>>(ifstream& input, Headman_Zhuchkov& newHeadman) {
-    newHeadman.setIsHeadman(true);
+ifstream& operator>>(ifstream& input, shared_ptr<Headman_Zhuchkov>& Headman) {
+    Headman-> setIsHeadman(true);
     string firstName, lastName, phoneNumber;
     int age;
     double GPA;
 
     input >> firstName >> lastName >> age >> GPA >> phoneNumber;
 
-    newHeadman.setFirstName(firstName);
-    newHeadman.setLastName(lastName);
-    newHeadman.setAge(age);
-    newHeadman.setGpa(GPA);
-    newHeadman.setPhoneNumber(phoneNumber);
+    Headman-> setFirstName(firstName);
+    Headman-> setLastName(lastName);
+    Headman-> setAge(age);
+    Headman-> setGpa(GPA);
+    Headman-> setPhoneNumber(phoneNumber);
 
     return input;
 }

@@ -7,10 +7,10 @@ Group_Zhuchkov::Group_Zhuchkov() {
 }
 
 int Group_Zhuchkov::createId() {
-    if (!listStudents.size()) return 0;
+    if (listStudents.size() == 0) return 0;
     shared_ptr<Student_Zhuchkov> lastStudent = listStudents.back();
 
-    return (lastStudent->getId());
+    return (lastStudent->getId() + 1);
 };
 
 void Group_Zhuchkov::addStudent() {
@@ -52,7 +52,7 @@ void Group_Zhuchkov::writeListToFile() {
 
 void Group_Zhuchkov::readListFromFile() {
     shared_ptr<Student_Zhuchkov> newStudent = make_shared<Student_Zhuchkov>();
-    shared_ptr<Headman_Zhuchkov> newSHeadman = make_shared<Headman_Zhuchkov>();
+    shared_ptr<Headman_Zhuchkov> newHeadman = make_shared<Headman_Zhuchkov>();
     string nameFile;
     string line;
 
@@ -65,13 +65,25 @@ void Group_Zhuchkov::readListFromFile() {
 
 
     while (inputFile >> line) {
-        if (line == "0") newStudent >> 
+        cout << line;
+        if (line == "0") { 
+            inputFile >> newStudent; 
+            newStudent->setId(createId());
+            listStudents.push_back(newStudent);
+            
+        }
+        else
+        {
+            inputFile >> newHeadman;
+            newHeadman->setId(createId());
+            listStudents.push_back(newHeadman);
 
-        newStudent -> readFromFile(nameFile, i * 5);
-        newStudent -> setId(createId());
-
-        listStudents.push_back(newStudent);
+            getline(inputFile, line);
+        }
+        for (int i = 0; i < 5; i++) getline(inputFile, line);
     }
+
+    inputFile.close();
 }
 
 void Group_Zhuchkov::removeList() {

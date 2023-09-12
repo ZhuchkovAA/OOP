@@ -12,6 +12,7 @@ public:
 	void setPhoneNumber(string phoneNumber);
 	void printInfo() override;
 	void writeToFile(string nameFile) override;
-	friend ifstream& operator>>(ifstream& input, Headman_Zhuchkov& newHeadman);
+
+	friend ifstream& operator>>(ifstream& input, shared_ptr<Headman_Zhuchkov>& newHeadman);
 };
 

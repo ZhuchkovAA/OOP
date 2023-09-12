@@ -50,7 +50,6 @@ public:
     void initStudent(int idStudent);
     virtual void printInfo();
     virtual void writeToFile(string nameFile);
-    virtual void readStudentFromFile(string nameFile);
 
-    friend ifstream& operator>>(ifstream& input, Student_Zhuchkov& student);
+    friend ifstream& operator>>(ifstream& input, shared_ptr<Student_Zhuchkov>& student);
 };

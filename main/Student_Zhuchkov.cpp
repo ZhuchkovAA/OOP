@@ -66,16 +66,16 @@ void Student_Zhuchkov::writeToFile(string nameFile) {
     }
 
     outputFile <<
-        isHeadman << endl <<
-        firstName << endl <<
-        lastName << endl <<
-        age << endl <<
-        GPA << endl;
+        isHeadman << " " <<
+        firstName << " " <<
+        lastName << " " <<
+        age << " " <<
+        GPA;
 
     outputFile.close();
 }
 
-ifstream& operator>>(ifstream& input, Student_Zhuchkov& Student) {
-    input >> Student.id >> Student.firstName >> Student.lastName >> Student.age >> Student.GPA;
+ifstream& operator>>(ifstream& input, shared_ptr<Student_Zhuchkov>& Student) {
+    input >> Student -> id >> Student -> firstName >> Student -> lastName >> Student -> age >> Student -> GPA;
     return input;
 };

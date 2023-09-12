@@ -75,29 +75,7 @@ void Student_Zhuchkov::writeToFile(string nameFile) {
     outputFile.close();
 }
 
-void Student_Zhuchkov::readStudentFromFile(string nameFile) {
-    string line;
-    ifstream inputFile(nameFile);
-
-    if (!inputFile) {
-        cerr << "\nОшибка. Попробуйте заново\n" << endl;
-        return;
-    }
-
-    isHeadman = false;
-    getline(inputFile, line);
-    firstName = line;
-    getline(inputFile, line);
-    lastName = line;
-    getline(inputFile, line);
-    age = stoi(line);
-    getline(inputFile, line);
-    GPA = stod(line);
-
-    inputFile.close();
-}
-
-ifstream& operator>>(ifstream& input, Student_Zhuchkov& student) {
-    input >> student.id >> student.firstName >> student.lastName >> student.age >> student.GPA;
+ifstream& operator>>(ifstream& input, Student_Zhuchkov& Student) {
+    input >> Student.id >> Student.firstName >> Student.lastName >> Student.age >> Student.GPA;
     return input;
 };

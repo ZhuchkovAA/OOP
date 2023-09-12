@@ -12,6 +12,6 @@ public:
 	void setPhoneNumber(string phoneNumber);
 	void printInfo() override;
 	void writeToFile(string nameFile) override;
-	void readFromFile(string nameFile);
+	friend ifstream& operator>>(ifstream& input, Headman_Zhuchkov& newHeadman);
 };
 

@@ -52,9 +52,9 @@ void Group_Zhuchkov::writeListToFile() {
 
 void Group_Zhuchkov::readListFromFile() {
     shared_ptr<Student_Zhuchkov> newStudent = make_shared<Student_Zhuchkov>();
+    shared_ptr<Headman_Zhuchkov> newSHeadman = make_shared<Headman_Zhuchkov>();
     string nameFile;
     string line;
-    int lineCount = 0;
 
     cout << "ֲגוהטעו טלÿ פאיכא: ";
     cin >> nameFile;
@@ -65,7 +65,7 @@ void Group_Zhuchkov::readListFromFile() {
 
 
     while (inputFile >> line) {
-        if (line == "0") 
+        if (line == "0") newStudent >> 
 
         newStudent -> readFromFile(nameFile, i * 5);
         newStudent -> setId(createId());

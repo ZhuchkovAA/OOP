@@ -40,17 +40,19 @@ void Headman_Zhuchkov::writeToFile(string nameFile) {
     outputFile.close();
 };
 
-void Headman_Zhuchkov::readFromFile(string nameFile) {
+ifstream& operator>>(ifstream& input, Headman_Zhuchkov& newHeadman) {
+    newHeadman.setIsHeadman(true);
+    string firstName, lastName, phoneNumber;
+    int age;
+    double GPA;
 
-    setIsHeadman(true);
-    getline(inputFile, line);
-    setFirstName(line);
-    getline(inputFile, line);
-    setLastName(line);
-    getline(inputFile, line);
-    setAge(stoi(line));
-    getline(inputFile, line);
-    setGpa(stod(line));
+    input >> firstName >> lastName >> age >> GPA >> phoneNumber;
 
-    inputFile.close();
+    newHeadman.setFirstName(firstName);
+    newHeadman.setLastName(lastName);
+    newHeadman.setAge(age);
+    newHeadman.setGpa(GPA);
+    newHeadman.setPhoneNumber(phoneNumber);
+
+    return input;
 }

@@ -52,5 +52,5 @@ public:
     virtual void writeToFile(string nameFile);
     virtual void readStudentFromFile(string nameFile);
 
-    friend ifstream& operator>>(ifstream& input, Student_Kosov& student);
+    friend ifstream& operator>>(ifstream& input, Student_Zhuchkov& student);
 };

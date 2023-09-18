@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="infoProtect.cpp">
+    <ClCompile Include="infoProtect_Zhuchkov.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

@@ -25,7 +25,7 @@ int main()
     Group_Zhuchkov group;
 
     while (state) {
-        cout << "\n1 - Добавить Студента\n2 - Вывести список Студентов\n3 - Записать в Файл\n4 - Считать из Файла\n5 - Отчистить список Студентов\n6 - Добавить Старосту\n0 - Выход\nВведите число: ";
+        cout << "\n1 - Добавить Студента\n2 - Добавить Старосту\n3 - Вывести полный список\n4 - Записать в Файл\n5 - Считать из Файла\n6 - Отчистить список Студентов\n0 - Выход\nВведите число: ";
 
         while (!(cin >> state)) cinErr("Введите число:");
 
@@ -35,23 +35,23 @@ int main()
             break;
         }
         case 2: {
-            group.printList();
+            group.addHeadman();
             break;
         }
         case 3: {
-            group.writeListToFile();
+            group.printList();
             break;
         }
         case 4: {
-            group.readListFromFile();
+            group.writeListToFile();
             break;
         }
         case 5: {
-            group.removeList();
+            group.readListFromFile();
             break;
         }
         case 6: {
-            group.addHeadman();
+            group.removeList();
             break;
         }
         default:

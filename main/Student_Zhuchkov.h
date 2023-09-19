@@ -3,6 +3,9 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <afx.h>
+#include <afxdisp.h>
+
 #include "Utils.h"
 
 class Student_Zhuchkov {

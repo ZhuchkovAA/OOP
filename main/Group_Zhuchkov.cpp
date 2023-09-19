@@ -64,8 +64,8 @@ void Group_Zhuchkov::readListFromFile() {
     if (!inputFile) { cerr << "\nОшибка. Попробуйте заново\n" << endl; return; }
 
 
-    while (inputFile >> line) {
-        cout << line;
+    while (getline(inputFile, line)) {
+        cout << line << endl;
         if (line == "0") { 
             inputFile >> newStudent; 
             newStudent->setId(createId());

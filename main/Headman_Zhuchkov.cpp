@@ -16,7 +16,7 @@ void Headman_Zhuchkov::initHeadman(int idStudent) {
 };
 
 void Headman_Zhuchkov::printInfo() {
-	cout << "\n# " << getId() + 1 << "\nИмя: " << getFirstName() <<
+	cout << "\n# " << getId() + 1 << "\nСтароста\nИмя: " << getFirstName() <<
 		"\nФамилия: " << getLastName() << "\nВозраст: " << getAge() <<
 		"\nСредний балл: " << getGpa() << "\nНомер телефона:" << getPhoneNumber() << "\n";
 };
@@ -30,11 +30,11 @@ void Headman_Zhuchkov::writeToFile(string nameFile) {
     }
 
     outputFile <<
-        getIsHeadman() <<  <<
-        getFirstName() << endl <<
-        getLastName() << endl <<
-        getAge() << endl <<
-        getGpa() << endl <<
+        getIsHeadman() << " " <<
+        getFirstName() << " " <<
+        getLastName() << " " <<
+        getAge() << " " <<
+        getGpa() << " " <<
         getPhoneNumber();
 
     outputFile.close();
@@ -47,6 +47,8 @@ ifstream& operator>>(ifstream& input, shared_ptr<Headman_Zhuchkov>& Headman) {
     double GPA;
 
     input >> firstName >> lastName >> age >> GPA >> phoneNumber;
+
+
 
     Headman-> setFirstName(firstName);
     Headman-> setLastName(lastName);

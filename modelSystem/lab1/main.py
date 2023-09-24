@@ -1,10 +1,8 @@
-import seaborn as sns
 from matplotlib import pyplot as plt
 import math
 import numpy as np
-from scipy.stats import chi2
 
-def in_interval(nums, least, great):
+def inInterval(nums, least, great):
     return sum(1 for elem in nums if (least <= elem < great))
 
 def writeToFile(nums, file_name):
@@ -75,7 +73,7 @@ def series(nums):
     nm = sum(1 for s in sign if not s)
     np = sum(1 for s in sign if s)
 
-    mu = 2*np*nm / sizeArray + 1
+    mu = 2 * np*nm / sizeArray + 1
     sigma_sq = 2*np*nm*(2*np*nm - sizeArray) / ((sizeArray**2)*(sizeArray - 1))
     sigma = sigma_sq**0.5
 
@@ -86,7 +84,8 @@ def chi_square(nums):
     m = int(size / 10)
     h = 1 / m
     x = [h*i for i in range(m + 1)]
-    n = [in_interval(nums, x[i], x[i+1]) for i in range(m)]
+    n = [inInterval(nums, x[i], x[i+1]) for i in range(m)]
+    
     return m / size * sum(map(lambda elem: elem**2, n)) - size
 
 if __name__== '__main__':
@@ -94,12 +93,10 @@ if __name__== '__main__':
     # writeToFile(nums, 'data.txt')
 
     nums = readFromFile('data.txt')
-
     createPlots(nums)
 
-    print('series method |z| < 2.8')
-    print(series(nums))
+    # Уровень значимости
+    print(f'\nseries method:   {series(nums)}\n') 
 
-    print('chi-squared^-1(0.99, 197) = 243.8595')
     print('chi-squared value:', chi_square(nums))
 

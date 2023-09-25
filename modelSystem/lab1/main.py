@@ -96,7 +96,8 @@ if __name__== '__main__':
     createPlots(nums)
 
     # Уровень значимости
-    print(f'\nseries method:   {series(nums)}\n') 
+    print(f'\nseries method:   {series(nums)}\n') # 2,644853627
+    # =НОРМ.ОБР(0,95; 1; 1)
 
-    print('chi-squared value:', chi_square(nums))
-
+    print('chi-squared value:', chi_square(nums)) # 120,9896437 
+    # =ХИ2.ОБР.ПХ(0,05; 97 )

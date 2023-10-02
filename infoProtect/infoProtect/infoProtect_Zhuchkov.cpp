@@ -101,17 +101,26 @@ void vijenerUpload(string& cipherFileName, string& key) {
     outputFile.close();
 }
 
-vector<int> getFrequency(vector<unsigned char> text) {
+void maxFrequencyN(vector<int> frequency, int N) {
+    unordered_map <int, int> frequencyRef;
+    for (int i = 0; i < 256; i++)
+        frequencyRef.insert({ frequency[i], i });
+    sort(frequency.begin(), frequency.end(), greater<int>());
+    for (int i = 0; i < N; i++) cout << i + 1 << ". " << char(frequencyRef[frequency[i]]) << ", количество: " << frequency[i] << endl;
+}
+
+vector<int> getFrequency(vector<unsigned char> text, bool isShow = false) {
     vector<int> frequency(256, 0);
     for (auto simbol : text) {
         frequency[simbol]++;
     }
+    if (isShow) maxFrequencyN(frequency, 5);
     return frequency;
 }
 
-float getIC(vector<unsigned char>& text) {
+float getIC(vector<unsigned char>& text, bool isShow = false) {
     vector<int> frequency;
-    frequency = getFrequency(text);
+    frequency = getFrequency(text, isShow);
 
     float IC = 0;
     float sum = 0;
@@ -123,14 +132,14 @@ float getIC(vector<unsigned char>& text) {
     return IC;
 }
 
-int getKeyLength(vector<unsigned char> textCipher) {
+int getKeyLength(vector<unsigned char> textCipher, double etalonIC) {
 
     int intStart, intEnd;
     cout << "Введите диапазон символов:" << endl;
     cin >> intStart; cin >> intEnd;
 
     int keyLenght = 0;
-    double maxIC = 0, IC = 0;
+    double maxIC = 1, IC = 0;
 
     for (int length = intStart; length <= intEnd; length++) {
         vector<unsigned char> refText;
@@ -144,8 +153,8 @@ int getKeyLength(vector<unsigned char> textCipher) {
         IC = getIC(refText);
         cout << "Полученый индекс соответсвия: " << IC << endl << endl;
 
-        if (IC > maxIC) {
-            maxIC = IC;
+        if ( abs(IC - etalonIC) < maxIC) {
+            maxIC = IC - etalonIC;
             keyLenght = length;
         }
     }
@@ -203,7 +212,7 @@ void ref() {
 
     string key;
 
-    int keyLength = getKeyLength(textCipher);
+    int keyLength = getKeyLength(textCipher, getIC(textEtalon, true));
     key = getKey(textCipher, keyLength);
     cout << "Ключ: " << key << endl;
     // vijener(cipherFileName, key, false);
@@ -221,7 +230,7 @@ int main()
 
     while (state) {
 
-        cout << "\n1 - Шифратор\n2 - Дешифратор\n0 - Выход\n";
+        cout << "\n1 - Шифратор\n2 - Дешифратор\n3 - 2 Лаба\n0 - Выход\n";
         cin >> state;
 
         switch (state) {

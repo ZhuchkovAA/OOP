@@ -1,4 +1,5 @@
 ﻿  infoProtect_Zhuchkov.cpp
-C:\Users\lesha\Documents\GitHub\OOP\infoProtect\infoProtect\infoProtect_Zhuchkov.cpp(148,27): warning C4018: <: несоответствие типов со знаком и без знака
-C:\Users\lesha\Documents\GitHub\OOP\infoProtect\infoProtect\infoProtect_Zhuchkov.cpp(173,27): warning C4018: <: несоответствие типов со знаком и без знака
-  infoProtect.vcxproj -> C:\Users\lesha\Documents\GitHub\OOP\infoProtect\Debug\infoProtect.exe
+C:\Users\Екатерина\Documents\GitHub\OOP\infoProtect\infoProtect\infoProtect_Zhuchkov.cpp(115,23): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Екатерина\Documents\GitHub\OOP\infoProtect\infoProtect\infoProtect_Zhuchkov.cpp(159,27): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Екатерина\Documents\GitHub\OOP\infoProtect\infoProtect\infoProtect_Zhuchkov.cpp(183,27): warning C4018: <: несоответствие типов со знаком и без знака
+  infoProtect.vcxproj -> C:\Users\Екатерина\Documents\GitHub\OOP\infoProtect\Debug\infoProtect.exe

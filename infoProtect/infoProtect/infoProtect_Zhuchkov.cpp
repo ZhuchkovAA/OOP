@@ -106,7 +106,18 @@ void maxFrequencyN(vector<int> frequency, int N) {
     for (int i = 0; i < 256; i++)
         frequencyRef.insert({ frequency[i], i });
     sort(frequency.begin(), frequency.end(), greater<int>());
-    for (int i = 0; i < N; i++) cout << i + 1 << ". " << char(frequencyRef[frequency[i]]) << ", количество: " << frequency[i] << endl;
+    for (int i = 0; i < N; i++) cout << i + 1 << ". " << char(frequencyRef[frequency[i]]) << ", количество: " << frequency[i] << ' ' << frequencyRef[frequency[i]] << endl;
+}
+
+int mostPopular(vector<int> frequency) {
+    int mostPopularIdx = 0;
+    int maxFrequency = 0;
+    for (int i = 0; i < frequency.size(); i++)
+        if (frequency[i] > maxFrequency) {
+            maxFrequency = frequency[i];
+            mostPopularIdx = i;
+        }
+    return mostPopularIdx;
 }
 
 vector<int> getFrequency(vector<unsigned char> text, bool isShow = false) {
@@ -163,22 +174,19 @@ int getKeyLength(vector<unsigned char> textCipher, double etalonIC) {
     return keyLenght;
 }
 
-string getKey(vector<unsigned char> text, int keyLength) {
+string getKey(vector<unsigned char> text, int keyLength, int mostPopular) {
     string key;
     vector<unsigned char> group;
 
     for (int i = 0; i < keyLength; i++) {
 
-        // Собираем символы, которые были зашифрованы с использованием i-го символа ключа
         for (int j = i; j < text.size(); j += keyLength) {
             group.push_back(text[j]);
         }
 
-        // Выполняем частотный анализ для группы символов
         vector<int> frequency = getFrequency(group);
 
-        // Находим наиболее вероятный символ ключа для данной позиции
-        char likelyKeyChar = 'A';
+        char likelyKeyChar;
         int maxFrequency = 0;
 
         for (int j = 0; j < 256; j++) {
@@ -188,7 +196,7 @@ string getKey(vector<unsigned char> text, int keyLength) {
             }
         }
 
-        key += char(int(likelyKeyChar) + 48);
+        key += char(likelyKeyChar - mostPopular);
         group.clear();
     }
 
@@ -213,7 +221,7 @@ void ref() {
     string key;
 
     int keyLength = getKeyLength(textCipher, getIC(textEtalon, true));
-    key = getKey(textCipher, keyLength);
+    key = getKey(textCipher, keyLength, mostPopular(getFrequency(textEtalon)));
     cout << "Ключ: " << key << endl;
     // vijener(cipherFileName, key, false);
     vijenerUpload(cipherFileName, key);

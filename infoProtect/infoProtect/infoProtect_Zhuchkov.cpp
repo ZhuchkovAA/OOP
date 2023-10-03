@@ -106,7 +106,7 @@ void maxFrequencyN(vector<int> frequency, int N) {
     for (int i = 0; i < 256; i++)
         frequencyRef.insert({ frequency[i], i });
     sort(frequency.begin(), frequency.end(), greater<int>());
-    for (int i = 0; i < N; i++) cout << i + 1 << ". " << char(frequencyRef[frequency[i]]) << ", количество: " << frequency[i] << ' ' << frequencyRef[frequency[i]] << endl;
+    for (int i = 0; i < N; i++) cout << i + 1 << ". " << static_cast<unsigned char>(frequencyRef[frequency[i]]) << ", количество: " << frequency[i] << " ASCII: " << frequencyRef[frequency[i]] << endl;
 }
 
 int mostPopular(vector<int> frequency) {
@@ -122,8 +122,9 @@ int mostPopular(vector<int> frequency) {
 
 vector<int> getFrequency(vector<unsigned char> text, bool isShow = false) {
     vector<int> frequency(256, 0);
-    for (auto simbol : text) {
-        frequency[simbol]++;
+
+    for (unsigned char simbol : text) {
+        frequency[int(simbol)]++;
     }
     if (isShow) maxFrequencyN(frequency, 5);
     return frequency;
@@ -131,6 +132,7 @@ vector<int> getFrequency(vector<unsigned char> text, bool isShow = false) {
 
 float getIC(vector<unsigned char>& text, bool isShow = false) {
     vector<int> frequency;
+
     frequency = getFrequency(text, isShow);
 
     float IC = 0;
@@ -150,7 +152,7 @@ int getKeyLength(vector<unsigned char> textCipher, double etalonIC) {
     cin >> intStart; cin >> intEnd;
 
     int keyLenght = 0;
-    double maxIC = 1, IC = 0;
+    double minDeltaIC = 1, IC = 0;
 
     for (int length = intStart; length <= intEnd; length++) {
         vector<unsigned char> refText;
@@ -164,8 +166,8 @@ int getKeyLength(vector<unsigned char> textCipher, double etalonIC) {
         IC = getIC(refText);
         cout << "Полученый индекс соответсвия: " << IC << endl << endl;
 
-        if ( abs(IC - etalonIC) < maxIC) {
-            maxIC = IC - etalonIC;
+        if ( abs(IC - etalonIC) < minDeltaIC) {
+            minDeltaIC = abs(IC - etalonIC);
             keyLenght = length;
         }
     }
@@ -212,7 +214,7 @@ void ref() {
     cout << "Введите имя файла с эталонным текстом: " << endl;
     cin >> etalonFileName;
 
-    ifstream inputTextCipher(cipherFileName, ios::binary);
+    ifstream inputTextCipher(cipherFileName, ios::binary); 
     vector<unsigned char> textCipher((istreambuf_iterator<char>(inputTextCipher)), istreambuf_iterator<char>());
 
     ifstream inputTextEtalon(etalonFileName, ios::binary);
@@ -223,7 +225,6 @@ void ref() {
     int keyLength = getKeyLength(textCipher, getIC(textEtalon, true));
     key = getKey(textCipher, keyLength, mostPopular(getFrequency(textEtalon)));
     cout << "Ключ: " << key << endl;
-    // vijener(cipherFileName, key, false);
     vijenerUpload(cipherFileName, key);
 }
 
@@ -238,7 +239,7 @@ int main()
 
     while (state) {
 
-        cout << "\n1 - Шифратор\n2 - Дешифратор\n3 - 2 Лаба\n0 - Выход\n";
+        cout << "\n1 - Шифратор\n2 - Дешифратор\n3 - 2 Лаб работа\n0 - Выход\n";
         cin >> state;
 
         switch (state) {

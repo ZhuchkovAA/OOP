@@ -1,5 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
+import math
 
 def read_from_file(file_name):
     with open(file_name, 'r') as file:
@@ -70,19 +71,21 @@ def chi_square(nums):
     
     print('\n\nХИ-квадрат: ', m / size * sum(map(lambda elem: elem**2, n)) - size)
 
-def exp_raspr(numbers):
+def exp_raspr(nums):
     x0 = 18
     lymbda = 5
     
     new_array = []
 
-    for count in numbers:
+    for count in nums:
         x = x0 - (1 / lymbda) * np.log(1 - count)
         new_array.append(x)
 
     create_graph(new_array)
 
-    series(new_array)
+    print(len(new_array))
+
+    series(nums)
     chi_square(nums)
 
     return new_array
@@ -101,6 +104,8 @@ def norm_raspr(nums):
             numbers.pop(i)
 
     create_graph(result)
+
+    print(len(result))
 
     return result
 
@@ -121,6 +126,8 @@ def chi_square_V(nums):
 
     create_graph(chi)
 
+    print(len(chi))
+
 def logist_raspr(nums):
     m = 57
     lymbda = 5
@@ -131,6 +138,8 @@ def logist_raspr(nums):
         data.append(m - lymbda * np.log((1 - count) / count))
     
     create_graph(data)
+
+    print(len(data))
 
 def disc_SV(nums):
     p = [ 0.27, 0.36, 0.25, 0.12 ]
@@ -154,6 +163,8 @@ def disc_SV(nums):
 
     create_graph(data)
 
+    print(len(data))
+
 def puasson(nums):
     lymbda = 5
     size = 1000
@@ -173,12 +184,14 @@ def puasson(nums):
 
     create_graph(puass)
 
+    print(len(puass))
+
 if __name__ == '__main__':
     nums = read_from_file('data.txt')
-    nums_exp = exp_raspr(nums)
+    # nums_exp = exp_raspr(nums)
     # nums_norm = norm_raspr(nums)
     # norm_raspr_m_s(nums_norm)
     # chi_square_V(nums_norm)
     # logist_raspr(nums)
     # disc_SV(nums)
-    # puasson(nums)
+    puasson(nums)

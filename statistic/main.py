@@ -16,6 +16,13 @@ def d2fdx2(x):
 
 bounds = [-2.5, -1]
 
+def f_thrid(x):
+    return x * math.atan(x) - 0.5 * math.log(1 + x**2)
+
+def dfdx_thrid(x):
+    return math.atan(x)
+
+
 def review_func():
     result = sp.optimize.minimize_scalar(f, bounds=bounds)
     print(f"""
@@ -49,13 +56,13 @@ def create_plot(x, y, points=None, title="График"):
     plt.title(title)
     plt.grid(True)
 
-    plt.xlim(-3, -0.5)
-    plt.ylim(-2, 0.5)
+    # plt.xlim(-5, 5)
+    # plt.ylim(-2, 120)
 
     plt.legend()
     plt.show()
 
-def create_data(n = 1000):
+def create_data(f, bounds=bounds, n=1000):
     x, y = [], []
     step = (bounds[1] - bounds[0]) / n 
     for i in range(n):
@@ -64,7 +71,7 @@ def create_data(n = 1000):
 
     return {'x' : x, 'y' : y}
 
-def bitwise_search(p, q, epsilon):
+def bitwise_search(p, q, epsilon, f=f, bounds=bounds):
     [a, b] = bounds
     h = (b - a) / p
 
@@ -104,7 +111,7 @@ def bitwise_search(p, q, epsilon):
     """)
     return { 'result' : result, 'points_data' : points_data }
 
-def golden_section(epsilon):
+def golden_section(epsilon, f=f, bounds=bounds):
     [a, b] = bounds
     phi = (1 + 5**0.5) / 2 
     c = b - (b - a) / phi
@@ -172,8 +179,8 @@ def chord_method(epsilon, max_iter=100_000):
     """)
     return { 'result' : result, 'points_data' : points_data }
 
-def marquardt(tol=1e-6, max_iter=100_000, lam=0.01):
-    x = np.array([sum(bounds)/len(bounds)])
+def marquardt(f=f, dfdx=dfdx, bounds=bounds, tol=1e-4, max_iter=100_000, lam=0.01):
+    x = np.array([2])
 
     iter_counter = 0
     f_counter = 0
@@ -193,7 +200,8 @@ def marquardt(tol=1e-6, max_iter=100_000, lam=0.01):
 
         df_counter += 1
         hessian_approx = dfdx(x) + lam * np.eye(len(x))
-        step = np.linalg.solve(hessian_approx, -gradient)
+        
+        step = np.linalg.solve(hessian_approx, [-gradient])
 
         f_counter += 1
         x_new = x + step
@@ -252,23 +260,12 @@ def broken_line_method(epsilon):
             return { 'result' : new_x, 'points_data' : points_data }
         x0 = new_x
 
-def pryam_metod():
-    x_symbol = symbols('x_symbol')
-    f_symbol = sympy.exp(x_symbol) - 1 - x_symbol - x_symbol**2 / 2 - x_symbol**3 / 6
-    f = lambdify(x_symbol, f_symbol, 'numpy')
-
-    lower_bound = -5
-    upper_bound = 5
-    eps = 1e-4
-
-    plt.plot((x:=np.linspace(lower_bound, upper_bound, 100)), f(x))
-    plt.grid(True)
-    plt.xticks(np.linspace(lower_bound, upper_bound, 10))
-    plt.show()
+def f_new(x):
+    return math.exp(x) - 1 - x - x**2 / 2 - x**3 / 6
 
 def main():
     
-    data = create_data()
+    # data = create_data()
 
     # print(data['x'], data['y']) 
     # review_func()
@@ -297,6 +294,20 @@ def main():
     #     chord_method(10**(-1*degree))
 
     # create_plot([1, 2, 3, 4, 5, 6], [7, 166325, 166325, 166325, 166325, 166325])
+
+    # bounds_new = [-5, 5]
+
+    # data = create_data(f_new, bounds_new)
+
+    # result = bitwise_search(100, 0.5, epsilon, f_new, bounds_new)['points_data']
+    # result = golden_section(epsilon, f_new, bounds_new)['points_data']
+    # create_plot(data['x'], data['y'], result)
+
+    bounds_thrid = [-2, 2]
+
+    data = create_data(f_thrid, bounds_thrid)
+    result = marquardt(f_thrid, dfdx_thrid, bounds_thrid, 1e-4, 100, epsilon)['points_data']
+    create_plot(data['x'], data['y'], result)
 
 
 

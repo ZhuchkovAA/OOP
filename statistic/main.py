@@ -5,23 +5,31 @@ from matplotlib import pyplot as plt
 import sympy
 from sympy import lambdify, symbols, diff
 
+# def f(x):
+#     return math.exp(x) - 1/3 * (x ** 3) + 2 * x
+
+# def dfdx(x):
+#     return math.exp(x) - x ** 2 + 2
+
+# def d2fdx2(x):
+    # return math.exp(x) - 2 * x
+
 def f(x):
-    return math.exp(x) - 1/3 * (x ** 3) + 2 * x
+    return x**4 + x**2 + x + 1
 
 def dfdx(x):
-    return math.exp(x) - x ** 2 + 2
+    return 4*x**3 + 2*x + 1
 
 def d2fdx2(x):
-    return math.exp(x) - 2 * x
+    return 12*x**2 + 2
 
-bounds = [-2.5, -1]
+bounds = [-1, 0]
 
 def f_thrid(x):
     return x * math.atan(x) - 0.5 * math.log(1 + x**2)
 
 def dfdx_thrid(x):
     return math.atan(x)
-
 
 def review_func():
     result = sp.optimize.minimize_scalar(f, bounds=bounds)
@@ -62,7 +70,7 @@ def create_plot(x, y, points=None, title="График"):
     plt.legend()
     plt.show()
 
-def create_data(f, bounds=bounds, n=1000):
+def create_data(f=f, bounds=bounds, n=1000):
     x, y = [], []
     step = (bounds[1] - bounds[0]) / n 
     for i in range(n):
@@ -265,18 +273,18 @@ def f_new(x):
 
 def main():
     
-    # data = create_data()
+    data = create_data()
 
     # print(data['x'], data['y']) 
     # review_func()
     
-    epsilon = 1e-4
+    epsilon = 1e-3
 
     # bitwise_search(100, 0.5, epsilon)
-    # result = bitwise_search(100, 0.5, epsilon)['points_data']
+    result = bitwise_search(100, 0.5, epsilon)['points_data']
 
     # golden_section(epsilon)
-    # result = golden_section(epsilon)['points_data']
+    result = golden_section(epsilon)['points_data']
 
     # chord_method(epsilon)
     # result = chord_method(epsilon)['points_data']
@@ -287,7 +295,7 @@ def main():
     # broken_line_method(epsilon)
     # result = broken_line_method(epsilon)['points_data']
 
-    # create_plot(data['x'], data['y'], result)
+    create_plot(data['x'], data['y'], result)
 
 
     # for degree in range(1, 7):
@@ -303,11 +311,11 @@ def main():
     # result = golden_section(epsilon, f_new, bounds_new)['points_data']
     # create_plot(data['x'], data['y'], result)
 
-    bounds_thrid = [-2, 2]
+    # bounds_thrid = [-2, 2]
 
-    data = create_data(f_thrid, bounds_thrid)
-    result = marquardt(f_thrid, dfdx_thrid, bounds_thrid, 1e-4, 100, epsilon)['points_data']
-    create_plot(data['x'], data['y'], result)
+    # data = create_data(f_thrid, bounds_thrid)
+    # result = marquardt(f_thrid, dfdx_thrid, bounds_thrid, 1e-4, 100, epsilon)['points_data']
+    # create_plot(data['x'], data['y'], result)
 
 
 

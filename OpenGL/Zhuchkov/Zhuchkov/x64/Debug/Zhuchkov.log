@@ -1,0 +1,13 @@
+﻿  Zhuchkov.cpp
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(50,22): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(126,35): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(126,28): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(141,16): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(143,39): warning C4305: =: усечение из "double" в "float"
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(144,40): warning C4305: =: усечение из "double" в "float"
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(145,41): warning C4305: =: усечение из "double" в "float"
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(145,64): warning C4305: -=: усечение из "double" в "float"
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(146,41): warning C4305: =: усечение из "double" в "float"
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(146,64): warning C4305: +=: усечение из "double" в "float"
+C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\Zhuchkov\Zhuchkov.cpp(192,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Zhuchkov.vcxproj -> C:\Users\lesha\Documents\GitHub\OOP\OpenGL\Zhuchkov\x64\Debug\Zhuchkov.exe

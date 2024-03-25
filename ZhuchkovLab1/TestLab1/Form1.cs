@@ -1,14 +1,14 @@
 using System.Diagnostics;
 
-namespace ZhuchkovLab1
+namespace TestLab1
 {
     public partial class Form1 : Form
     {
         Process childProcess = null;
         EventWaitHandle eventStart = new EventWaitHandle(false, EventResetMode.AutoReset, "StartEvent");
         EventWaitHandle eventConfirm = new EventWaitHandle(false, EventResetMode.AutoReset, "ConfirmEvent");
-        EventWaitHandle eventClose = new EventWaitHandle(false, EventResetMode.AutoReset, "CloseProcZhuchkov");
-        EventWaitHandle eventExit = new EventWaitHandle(false, EventResetMode.AutoReset, "ExitProcZhuchkov");
+        EventWaitHandle eventClose = new EventWaitHandle(false, EventResetMode.AutoReset, "CloseProcTest");
+        EventWaitHandle eventExit = new EventWaitHandle(false, EventResetMode.AutoReset, "ExitProcTest");
 
         int threadsCounter = 0;
 
@@ -22,7 +22,7 @@ namespace ZhuchkovLab1
             if (childProcess == null || childProcess.HasExited)
             {
                 LBThreadNums.Items.Clear();
-                childProcess = Process.Start("ZhuchkovConsoleApp.exe");
+                childProcess = Process.Start("TestConsoleApp.exe");
                 eventConfirm.WaitOne();
                 LBThreadNums.Items.Add("Main");
                 LBThreadNums.Items.Add("All threads");

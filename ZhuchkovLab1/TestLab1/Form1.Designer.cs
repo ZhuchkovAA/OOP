@@ -1,4 +1,4 @@
-﻿namespace ZhuchkovLab1
+﻿namespace TestLab1
 {
     partial class Form1
     {
@@ -101,7 +101,7 @@
             Controls.Add(BStart);
             Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
-            Text = "ZhuchkovLab1";
+            Text = "TestLab1";
             ((System.ComponentModel.ISupportInitialize)NStartThreads).EndInit();
             ResumeLayout(false);
         }

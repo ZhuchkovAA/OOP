@@ -1,4 +1,4 @@
-namespace ZhuchkovLab1
+namespace TestLab1
 {
     internal static class Program
     {

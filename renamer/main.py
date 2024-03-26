@@ -7,7 +7,7 @@ import time
 import sys
 import subprocess
 
-# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился..
+# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился
 
 def animated_loading():
     chars = "/—\|" 
@@ -25,12 +25,8 @@ def get_file_git():
         return None
 
 def get_file_local():
-    try:
-        with open('../main.py', "r", encoding='utf8') as file:
-            return file.read()
-    except:
-        with open('main.py', "r", encoding='utf8') as file:
-            return file.read()
+    with open('main.py', "r", encoding='utf8') as file:
+        return file.read()
 
 def is_equal_files():
     git = get_file_git()
@@ -59,19 +55,14 @@ def update_project():
     if response['success']: return False
 
     print('Установка обновлений...')
-    try:
-        with open('../main.py', 'w', encoding='utf8') as file:
-            file.write(response['files']['git'])
-            create_exe()
-    except:
-        with open('main.py', 'w', encoding='utf8') as file:
-            file.write(response['files']['git'])
-            create_exe()
+
+    with open('main.py', 'w', encoding='utf8') as file:
+        file.write(response['files']['git'])
+        create_exe()
 
     print('Требуестся перезагрузка...')
     time.sleep(1000)
     return True
-
 
 
 def replace_name(name, names, root):

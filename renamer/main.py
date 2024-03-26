@@ -43,9 +43,9 @@ def create_exe():
     subprocess.run(["pyinstaller", "--onefile", "main.py"], check=True)
 
     try: 
-        subprocess.Popen("dist/main.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
-        shutil.move('dist/main.exe', 'main.exe')
-        shutil.rmtree("dist")
+        # subprocess.Popen("dist/main.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
+        # shutil.move('dist/main.exe', 'main.exe')
+        # shutil.rmtree("dist")
         shutil.rmtree("build")
         os.remove('main.spec')
         shutil.rmtree("__pycache__")

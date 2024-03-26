@@ -24,8 +24,12 @@ def get_file_git():
         return None
 
 def get_file_local():
-    with open('../main.py', "r", encoding='utf8') as file:
-        return file.read()
+    try:
+        with open('../main.py', "r", encoding='utf8') as file:
+            return file.read()
+    except:
+        with open('main.py', "r", encoding='utf8') as file:
+            return file.read()
 
 def is_equal_files():
     git = get_file_git()
@@ -53,9 +57,14 @@ def update_project():
     if response['success']: return False
 
     print('Установка обновлений...')
-    with open('../main.py', 'w', encoding='utf8') as file:
-        file.write(response['files']['git'])
-        create_exe()
+    try:
+        with open('../main.py', 'w', encoding='utf8') as file:
+            file.write(response['files']['git'])
+            create_exe()
+    except:
+        with open('main.py', 'w', encoding='utf8') as file:
+            file.write(response['files']['git'])
+            create_exe()
 
     print('Требуестся перезагрузка...')
     time.sleep(1000)

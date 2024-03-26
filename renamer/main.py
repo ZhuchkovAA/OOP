@@ -24,12 +24,8 @@ def get_file_git():
         return None
 
 def get_file_local():
-    try:
-        with open('../main.py', "r", encoding='utf8') as file:
-            return file.read()
-    except:
-        with open('main.py', "r", encoding='utf8') as file:
-            return file.read()
+    with open('main.py', "r", encoding='utf8') as file:
+        return file.read()
 
 def is_equal_files():
     git = get_file_git()
@@ -45,11 +41,11 @@ def is_equal_files():
 def create_exe():
     subprocess.run(["pyinstaller", "--onefile", "main.py"], check=True)
 
-    # shutil.move('dist/main.exe', 'main.exe')
-    # shutil.rmtree("dist")
-    # shutil.rmtree("build")
-    # os.remove('main.spec')
-    # shutil.rmtree("__pycache__")
+    shutil.move('dist/main.exe', 'main.exe')
+    shutil.rmtree("dist")
+    shutil.rmtree("build")
+    os.remove('main.spec')
+    shutil.rmtree("__pycache__")
 
 def update_project():
     print('Проверка обновлений...')
@@ -57,14 +53,9 @@ def update_project():
     if response['success']: return False
 
     print('Установка обновлений...')
-    try:
-        with open('../main.py', 'w', encoding='utf8') as file:
-            file.write(response['files']['git'])
-            create_exe()
-    except:
-        with open('main.py', 'w', encoding='utf8') as file:
-            file.write(response['files']['git'])
-            create_exe()
+    with open('main.py', 'w', encoding='utf8') as file:
+        file.write(response['files']['git'])
+        create_exe()
 
     print('Требуестся перезагрузка...')
     time.sleep(1000)

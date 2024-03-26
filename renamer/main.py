@@ -1,6 +1,15 @@
 import os
 
-def rename_all(startpath, old_name, new_name):
+def replace_name(name : dict, names : list, root, path):
+    if name['old'] in names:
+        path['old'] = os.path.join(root, names)
+        new_names = names.replace(name['old'], name['new']) 
+        path['new'] = os.path.join(root, new_names)
+        os.rename(path['old'], path['new'])
+
+    return { 'path' : path }
+
+def rename_project(startpath, name_project):
     counter = {
         'general': 0,
         'success': 0,
@@ -10,18 +19,14 @@ def rename_all(startpath, old_name, new_name):
         for filename in files:
             counter['general'] += 1
             try:
-                old_path = os.path.join(root, filename)
-                new_path = old_path
 
-                if old_name in filename:  
-                    new_filename = filename.replace(old_name, new_name) 
-                    new_path = os.path.join(root, new_filename)
-                    os.rename(old_path, new_path)
+                result = replace_name(name_project, filename, root, path)
+                path =  result['path']
 
-                with open(new_path, 'r') as file:
+                with open(path['new'], 'r') as file:
                     content = file.read()
-                content = content.replace(old_name, new_name)
-                with open(new_path, 'w') as file:
+                content = content.replace(name_project['old'], name_project['new'])
+                with open(path['new'], 'w') as file:
                     file.write(content)
 
                 counter['success'] += 1
@@ -30,26 +35,32 @@ def rename_all(startpath, old_name, new_name):
 
         for foldername in dirs:
             try:
-                if old_name in foldername:
-                    old_path = os.path.join(root, foldername)
-                    new_foldername = foldername.replace(old_name, new_name)
-                    new_path = os.path.join(root, new_foldername)
-                    os.rename(old_path, new_path)
-                    print(f'Renamed: \n{old_path}\nto\n{new_path} \n')
-                    rename_all(new_path, old_name, new_name)
+                result = replace_name(name_project, foldername, root, path)
+                path =  result['path']
+
+                rename_project(path['new'], name_project)
             except:
                 pass
     return counter
 
 
-def main():   
-    directory = input("Директория: ").replace("\\", "/")
-    old_name = input("Старая Фамилия: ")
-    new_name = input("Новая Фамилия: ")
+def main():
+    data = {
+        'name_project' : {
+            'old' : None,
+            'new' : None
+        },
+        'directory' : None 
+    }
+
+
+    data['directory'] = input("Директория: ").replace("\\", "/")
+    data['name_project']['old'] = input("Старая Фамилия: ")
+    data['name_project']['new'] = input("Новая Фамилия: ")
     
-    if (input(f"\n\nДиректория: {directory}\n{old_name} меняю на {new_name}\n       [yes/no]: ") in ['y', 'yes']):
-        data = rename_all(directory, old_name, new_name)
-        print(f"\nВсего файлов: {data['general']}\nУспешно заменили: {data['success']}\nНе удалось открыть: {data['fail']}")
+    if (input(f"\n\nДиректория: {data['directory']}\n{data['name_project']['old']} меняю на {data['name_project']['new']}\n       [yes/no]: ") in ['y', 'yes']):
+        results = rename_project(data['directory'], data['name_project'])
+        print(f"\nВсего файлов: {results['general']}\nУспешно заменили: {results['success']}\nНе удалось открыть: {results['fail']}")
 
         print('\nP.S. Файлы которые не удалось открыть - скорее всего служебные, в них нет Фамилии автора.\nОтблагодарить можно пивом')
     else:

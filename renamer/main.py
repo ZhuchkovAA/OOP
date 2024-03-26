@@ -24,7 +24,7 @@ def get_file_git():
         return None
 
 def get_file_local():
-    with open('main.py', "r", encoding='utf8') as file:
+    with open('../main.py', "r", encoding='utf8') as file:
         return file.read()
 
 def is_equal_files():
@@ -41,8 +41,8 @@ def is_equal_files():
 def create_exe():
     subprocess.run(["pyinstaller", "--onefile", "main.py"], check=True)
 
-    shutil.move('dist/main.exe', 'main.exe')
-    shutil.rmtree("dist")
+    # shutil.move('dist/main.exe', 'main.exe')
+    # shutil.rmtree("dist")
     shutil.rmtree("build")
     shutil.rmtree("__pycache__")
     os.remove('main.spec')
@@ -53,7 +53,7 @@ def update_project():
     if response['success']: return False
 
     print('Установка обновлений...')
-    with open('main.py', 'w', encoding='utf8') as file:
+    with open('../main.py', 'w', encoding='utf8') as file:
         file.write(response['files']['git'])
         create_exe()
 
@@ -97,8 +97,6 @@ def rename_project(directory, name_project):
             try:
                 result = replace_name(name_project, filename, root)
                 path_ = result['path']
-
-                # print(path_, 30 * '-', path_)
 
                 with open(path_['new'], 'r') as file:
                     content = file.read()

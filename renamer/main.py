@@ -47,9 +47,9 @@ def create_exe():
 
     # shutil.move('dist/main.exe', 'main.exe')
     # shutil.rmtree("dist")
-    shutil.rmtree("build")
-    shutil.rmtree("__pycache__")
-    os.remove('main.spec')
+    # shutil.rmtree("build")
+    # os.remove('main.spec')
+    # shutil.rmtree("__pycache__")
 
 def update_project():
     print('Проверка обновлений...')

@@ -9,6 +9,8 @@ import subprocess
 
 # Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился..
 
+is_exe = os.path.basename(__file__) == 'main.exe'
+
 def animated_loading():
     chars = "/—\|" 
     for char in chars:
@@ -40,12 +42,15 @@ def is_equal_files():
     return { 'success' : False,  'files' : {'git' : git, 'local' : local}}
 
 def create_exe():
-    subprocess.run(["pyinstaller", "--onefile", "main.py"], check=True)
+
+    script_path = "main.py"
+    output_path = "main.exe"  
+    subprocess.run(["pyinstaller", "--onefile", "--distpath=.", script_path], check=True)
+
+    if os.path.exists("dist"):
+        os.rename(os.path.join("dist", "main.exe"), output_path)
 
     try: 
-        # subprocess.Popen("dist/main.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
-        # shutil.move('dist/main.exe', 'main.exe')
-        # shutil.rmtree("dist")
         shutil.rmtree("build")
         os.remove('main.spec')
         shutil.rmtree("__pycache__")

@@ -41,11 +41,11 @@ def is_equal_files():
 def create_exe():
     subprocess.run(["pyinstaller", "--onefile", "main.py"], check=True)
 
-    # shutil.move('dist/main.exe', 'main.exe')
-    # shutil.rmtree("dist")
-    # shutil.rmtree("build")
-    # shutil.rmtree("__pycache__")
-    # os.remove('main.spec')
+    shutil.move('dist/main.exe', 'main.exe')
+    shutil.rmtree("dist")
+    shutil.rmtree("build")
+    shutil.rmtree("__pycache__")
+    os.remove('main.spec')
 
 def update_project():
     print('Проверка обновлений...')

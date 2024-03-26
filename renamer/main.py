@@ -7,7 +7,7 @@ import time
 import sys
 import subprocess
 
-# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился
+# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился..
 
 def animated_loading():
     chars = "/—\|" 
@@ -42,12 +42,15 @@ def is_equal_files():
 def create_exe():
     subprocess.run(["pyinstaller", "--onefile", "main.py"], check=True)
 
-    subprocess.run('dist/main.exe')
-    shutil.move('dist/main.exe', 'main.exe')
-    shutil.rmtree("dist")
-    shutil.rmtree("build")
-    os.remove('main.spec')
-    shutil.rmtree("__pycache__")
+    try: 
+        subprocess.run('dist/main.exe')
+        shutil.move('dist/main.exe', 'main.exe')
+        shutil.rmtree("dist")
+        shutil.rmtree("build")
+        os.remove('main.spec')
+        shutil.rmtree("__pycache__")
+    except:
+        pass
 
 def update_project():
     print('Проверка обновлений...')
@@ -63,6 +66,7 @@ def update_project():
     print('Требуестся перезагрузка...')
     time.sleep(1000)
     return True
+
 
 
 def replace_name(name, names, root):

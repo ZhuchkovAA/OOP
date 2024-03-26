@@ -5,6 +5,7 @@ import shutil
 import os
 import time
 import sys
+import subprocess
 
 # Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился..
 
@@ -24,8 +25,12 @@ def get_file_git():
         return None
 
 def get_file_local():
-    with open('main.py', "r", encoding='utf8') as file:
-        return file.read()
+    try:
+        with open('../main.py', "r", encoding='utf8') as file:
+            return file.read()
+    except:
+        with open('main.py', "r", encoding='utf8') as file:
+            return file.read()
 
 def is_equal_files():
     git = get_file_git()
@@ -41,6 +46,7 @@ def is_equal_files():
 def create_exe():
     subprocess.run(["pyinstaller", "--onefile", "main.py"], check=True)
 
+    subprocess.run('dist/main.exe')
     shutil.move('dist/main.exe', 'main.exe')
     shutil.rmtree("dist")
     shutil.rmtree("build")
@@ -53,9 +59,14 @@ def update_project():
     if response['success']: return False
 
     print('Установка обновлений...')
-    with open('main.py', 'w', encoding='utf8') as file:
-        file.write(response['files']['git'])
-        create_exe()
+    try:
+        with open('../main.py', 'w', encoding='utf8') as file:
+            file.write(response['files']['git'])
+            create_exe()
+    except:
+        with open('main.py', 'w', encoding='utf8') as file:
+            file.write(response['files']['git'])
+            create_exe()
 
     print('Требуестся перезагрузка...')
     time.sleep(1000)

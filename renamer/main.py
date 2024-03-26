@@ -39,7 +39,7 @@ def is_equal_files():
     return { 'success' : False,  'files' : {'git' : git, 'local' : local}}
 
 def create_exe():
-    subprocess.run(["pyinstaller", "main.py"], check=True)
+    subprocess.run(["pyinstaller", "--onefile", "main.py"], check=True)
 
     # shutil.move('dist/main.exe', 'main.exe')
     # shutil.rmtree("dist")

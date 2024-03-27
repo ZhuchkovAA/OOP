@@ -7,9 +7,7 @@ import time
 import sys
 import subprocess
 
-# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился
-
-is_exe = os.path.basename(__file__) == 'main.exe'
+# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился..
 
 def animated_loading():
     chars = "/—\|" 
@@ -139,6 +137,8 @@ def main():
         },
         'directory' : None 
     }
+
+    is_exe = os.path.basename(__file__).split('.')[-1] == 'exe'
 
     path_to = {}
     if (is_exe): path_to['root'] = '../'

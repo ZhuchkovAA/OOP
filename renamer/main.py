@@ -7,7 +7,7 @@ import time
 import sys
 import subprocess
 
-# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился.
+# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился.asd
 
 def animated_loading():
     chars = "/—\|" 
@@ -25,7 +25,7 @@ def get_file_git():
         return None
 
 def get_file_local(path_to):
-    with open('main.py', "r", encoding='utf8') as file:
+    with open(path_to['root'] + 'main.py', "r", encoding='utf8') as file:
         return file.read()
 
 def is_equal_files(path_to):

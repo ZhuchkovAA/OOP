@@ -7,7 +7,7 @@ import time
 import sys
 import subprocess
 
-# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился..
+# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился.
 
 def animated_loading():
     chars = "/—\|" 
@@ -25,7 +25,7 @@ def get_file_git():
         return None
 
 def get_file_local(path_to):
-    with open(path_to['root'] + 'main.py', "r", encoding='utf8') as file:
+    with open('main.py', "r", encoding='utf8') as file:
         return file.read()
 
 def is_equal_files(path_to):
@@ -40,7 +40,7 @@ def is_equal_files(path_to):
     return { 'success' : False,  'files' : {'git' : git, 'local' : local}}
 
 def create_exe(path_to):
-    subprocess.run(["pyinstaller", "--onefile", (path_to['root'] + 'main.py')], check=True)
+    subprocess.run(["pyinstaller", "--onefile", path_to['root'] + 'main.py'], check=True)
 
     try: 
         # subprocess.Popen("dist/main_ref.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
@@ -59,7 +59,7 @@ def update_project(path_to):
 
     print('Установка обновлений...')
 
-    with open((path_to['root'] + 'main.py'), 'w', encoding='utf8') as file:
+    with open('main.py', 'w', encoding='utf8') as file:
         file.write(response['files']['git'])
         create_exe(path_to)
 
@@ -138,14 +138,11 @@ def main():
         'directory' : None 
     }
 
-    is_exe = True
-
+    is_exe = os.path.basename(__file__).split('.')[-1] == 'exe'
     path_to = {}
     if (is_exe): path_to['root'] = '../'
     else: path_to['root'] = ''
-
     if (update_project(path_to)): return
-        
     print('\nПеред изменением имени файлов рекомендуется:\n    1. Закрыть Visual Studio\n    2. Удалить папки x64, bin, obj, .vs\n')
 
     data['directory'] = input("Директория с проектом: ").replace("\\", "/")

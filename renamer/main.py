@@ -25,7 +25,7 @@ def get_file_git():
         return None
 
 def get_file_local(path_to):
-    with open(path_to['root'] + 'main.py', "r", encoding='utf8') as file:
+    with open('main.py', "r", encoding='utf8') as file:
         return file.read()
 
 def is_equal_files(path_to):
@@ -40,17 +40,17 @@ def is_equal_files(path_to):
     return { 'success' : False,  'files' : {'git' : git, 'local' : local}}
 
 def create_exe(path_to):
-    subprocess.run(["pyinstaller", "--onefile", (path_to['root'] + 'main.py')], check=True)
+    subprocess.run(["pyinstaller", "--onefile", 'main.py'], check=True)
 
-    # try: 
-    #     # subprocess.Popen("dist/main_ref.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
-    #     shutil.move(path_to['root'] + 'dist/main_ref.exe', 'main_ref.exe')
-    #     shutil.rmtree(path_to['root'] + "dist")
-    #     shutil.rmtree(path_to['root'] + "build")
-    #     os.remove(path_to['root'] + 'main.spec')
-    #     shutil.rmtree(path_to['root'] + "__pycache__")
-    # except:
-    #     pass
+    try: 
+        # subprocess.Popen("dist/main_ref.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
+        shutil.move('dist/main.exe', 'main.exe')
+        shutil.rmtree("dist")
+        shutil.rmtree("build")
+        os.remove('main.spec')
+        shutil.rmtree("__pycache__")
+    except:
+        pass
 
 def update_project(path_to):
     print('Проверка обновлений...')
@@ -59,7 +59,7 @@ def update_project(path_to):
 
     print('Установка обновлений...')
 
-    with open((path_to['root'] + 'main.py'), 'w', encoding='utf8') as file:
+    with open('main.py', 'w', encoding='utf8') as file:
         file.write(response['files']['git'])
         create_exe(path_to)
 

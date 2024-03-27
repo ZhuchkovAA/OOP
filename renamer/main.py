@@ -13,6 +13,7 @@ from additional import animated_loading
 def load_file_git(path_to, file_name):
     url = f"https://raw.githubusercontent.com/ZhuchkovAA/OOP/main/renamer/{file_name}"
     response = requests.get(url)
+
     if response.status_code == 200:
         with open(path_to['root'] + file_name, 'x', encoding='utf8') as file:
             file.write(response.text)
@@ -82,7 +83,7 @@ def check_files(Dependencies):
     try: 
         from dependencies import Dependencies
     except: 
-        load_file_git({'root' : '../'}, 'dependencies')
+        load_file_git({'root' : '../'}, 'dependencies.py')
         from dependencies import Dependencies
         is_downloaded = True
 
@@ -108,7 +109,7 @@ def main():
 
     Dependencies = None
     check_files(Dependencies)
-
+    
     if (update_project(Dependencies.path_to, Dependencies.files)): return
     
     print('\nПеред изменением имени файлов рекомендуется:\n    1. Закрыть Visual Studio\n    2. Удалить папки x64, bin, obj, .vs\n')

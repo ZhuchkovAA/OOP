@@ -85,7 +85,7 @@ def check_files(Dependencies):
     try: 
         from dependencies import Dependencies
     except: 
-        load_file_git('../', 'dependencies')
+        load_file_git({'root' : '../'}, 'dependencies')
         from dependencies import Dependencies
         is_downloaded = True
 

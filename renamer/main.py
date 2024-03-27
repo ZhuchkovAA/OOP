@@ -7,7 +7,7 @@ import time
 import sys
 import subprocess
 
-# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился.
+# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился..
 
 def animated_loading():
     chars = "/—\|" 
@@ -17,28 +17,18 @@ def animated_loading():
         sys.stdout.flush()
 
 def get_file_git():
-    print(7)
-    time.sleep(1)
     url = "https://raw.githubusercontent.com/ZhuchkovAA/OOP/main/renamer/main.py"
     response = requests.get(url)
-    print(8)
-    time.sleep(1)
     if response.status_code == 200:
         return response.text
     else:
         return None
 
 def get_file_local(path_to):
-    print(9)
-    time.sleep(1)
-    with open('main.py', "r", encoding='utf8') as file:
-        print(10)
-        time.sleep(1)
+    with open(path_to['root'] + 'main.py', "r", encoding='utf8') as file:
         return file.read()
 
 def is_equal_files(path_to):
-    print(6)
-    time.sleep(1)
     git = get_file_git()
     local = get_file_local(path_to)
 
@@ -50,7 +40,7 @@ def is_equal_files(path_to):
     return { 'success' : False,  'files' : {'git' : git, 'local' : local}}
 
 def create_exe(path_to):
-    subprocess.run(["pyinstaller", "--onefile", 'main.py'], check=True)
+    subprocess.run(["pyinstaller", "--onefile", (path_to['root'] + 'main.py')], check=True)
 
     try: 
         # subprocess.Popen("dist/main_ref.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
@@ -63,15 +53,13 @@ def create_exe(path_to):
         pass
 
 def update_project(path_to):
-    print(5)
-    time.sleep(1)
     print('Проверка обновлений...')
     response = is_equal_files(path_to) 
     if response['success']: return False
 
     print('Установка обновлений...')
 
-    with open('main.py', 'w', encoding='utf8') as file:
+    with open((path_to['root'] + 'main.py'), 'w', encoding='utf8') as file:
         file.write(response['files']['git'])
         create_exe(path_to)
 
@@ -142,7 +130,6 @@ def rename_project(directory, name_project):
 
 
 def main():
-    print(1)
     data = {
         'name_project' : {
             'old' : None,
@@ -151,14 +138,14 @@ def main():
         'directory' : None 
     }
 
-    is_exe = os.path.basename(__file__).split('.')[-1] == 'exe'
-    print(2)
+    is_exe = True
+
     path_to = {}
     if (is_exe): path_to['root'] = '../'
     else: path_to['root'] = ''
-    print(3)
+
     if (update_project(path_to)): return
-    print(4)
+        
     print('\nПеред изменением имени файлов рекомендуется:\n    1. Закрыть Visual Studio\n    2. Удалить папки x64, bin, obj, .vs\n')
 
     data['directory'] = input("Директория с проектом: ").replace("\\", "/")

@@ -93,8 +93,11 @@ def main():
     try:
         has_git()
         has_additional()
+        print('Все файлы подключены')
+        time.sleep(2)
     except:
         print('Идут технические работы..')
+        return
 
     if (update_project(path_to)): return
     

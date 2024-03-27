@@ -1,9 +1,11 @@
-
 import requests
 import subprocess
 import time
 import shutil
 import os
+import time
+import sys
+import subprocess
 
 def has_git():
     return True
@@ -58,7 +60,7 @@ def update_project(path_to):
     files = ['main.py', 'git.py', 'additional.py']
     print('Проверка обновлений...')
 
-    response = is_equal_files(path_to) 
+    response = is_equal_files(path_to, files) 
     if response['success']: return False
 
     print('Установка обновлений...')
@@ -66,7 +68,7 @@ def update_project(path_to):
     for files in response['files']:
         with open(path_to['root'] + files['name'], 'w', encoding='utf8') as file:
             file.write(files['git'])
-            
+
     create_exe(path_to)
 
     print('Требуется перезагрузка...')

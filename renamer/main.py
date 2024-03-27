@@ -7,8 +7,24 @@ import time
 import sys
 import subprocess
 
-from git import update_project, has_git
-from additional import animated_loading, has_additional
+from git import update_project
+from additional import animated_loading
+
+def load_file_git(path_to, file_name):
+    print(f'Скачавается файл {file_name}    ')
+
+    animated_loading()
+
+    url = f"https://raw.githubusercontent.com/ZhuchkovAA/OOP/main/renamer/{file_name}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        with open(path_to['root'] + file_name, 'w', encoding='utf8') as file:
+            file.write(response.text)
+    else:
+        print(f'Not found file "{file_name}" on git')
+
+    sys.stdout.write('\r' + ' ' * 20 + '\r')
+    sys.stdout.flush()
 
 # Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился, а ебаться с этим желания ноль..
 
@@ -69,9 +85,6 @@ def rename_project(directory, name_project):
             except:
                 pass
 
-    sys.stdout.write('\r' + ' ' * 20 + '\r')
-    sys.stdout.flush()
-
     return counter
 
 
@@ -85,21 +98,29 @@ def main():
     }
 
     is_exe = True
+    files = ['main.py', 'git.py', 'additional.py']
 
     path_to = {}
     if (is_exe): path_to['root'] = '../'
     else: path_to['root'] = ''
 
-    try:
-        has_git()
-        has_additional()
-        print('Все файлы подключены')
-        time.sleep(2)
-    except:
-        print('Идут технические работы..')
-        return
+    is_downloaded = False
 
-    if (update_project(path_to)): return
+    try: 
+        from git import create_exe
+        from git import has_git
+    except: 
+        load_file_git(path_to, 'git.py')
+        is_downloaded = True
+
+    try: from git import has_additional
+    except: 
+        load_file_git(path_to, 'additional.py')
+        is_downloaded = True
+
+    if (is_downloaded): create_exe(path_to)
+
+    if (update_project(path_to, files)): return
     
     print('\nПеред изменением имени файлов рекомендуется:\n    1. Закрыть Visual Studio\n    2. Удалить папки x64, bin, obj, .vs\n')
 
@@ -124,6 +145,7 @@ def main():
         print('Завершение программы...')
 
     print("\n\nGitHub: https://github.com/ZhuchkovAA")
+    time.sleep(3)
 
 if __name__ == '__main__':
     main()

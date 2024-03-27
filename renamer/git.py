@@ -55,9 +55,8 @@ def create_exe(path_to):
     except:
         pass
 
-def update_project(path_to):
+def update_project(path_to, files):
 
-    files = ['main.py', 'git.py', 'additional.py']
     print('Проверка обновлений...')
 
     response = is_equal_files(path_to, files) 

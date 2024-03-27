@@ -123,7 +123,7 @@ def main():
     Dependencies.data['name_project']['new'] = input("Новая Фамилия: ")
 
     if (input(f"\n\nДиректория: {Dependencies.data['directory']}\n{Dependencies.data['name_project']['old']} меняю на {Dependencies.data['name_project']['new']}\n                 [yes/no]: ") in ['y', 'yes']):
-        counter = rename_project(data['directory'], data['name_project'])
+        counter = rename_project(Dependencies.data['directory'], Dependencies.data['name_project'])
         print(f"\nВсего: {counter['general']}\nУспешно заменили: {counter['success']}\nНе удалось открыть: {counter['fail']}")
 
         print('\nP.S. Файлы которые не удалось открыть - скорее всего служебные/результат сборки, в них нет Фамилии автора.')

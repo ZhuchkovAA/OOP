@@ -11,3 +11,4 @@ def animated_loading():
         time.sleep(.1)
         sys.stdout.flush()
 
+# Test

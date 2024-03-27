@@ -15,7 +15,7 @@ def load_file_git(path_to, file_name):
     response = requests.get(url)
 
     if response.status_code == 200:
-        with open(path_to['root'] + file_name, 'x', encoding='utf8') as file:
+        with open(path_to['root'] + file_name, 'w', encoding='utf8') as file:
             file.write(response.text)
 
 def replace_name(name, names, root):
@@ -77,7 +77,7 @@ def rename_project(directory, name_project):
 
     return counter
 
-def check_files(Dependencies):
+def check_files():
     is_downloaded = False
 
     try: 
@@ -97,18 +97,18 @@ def check_files(Dependencies):
         is_downloaded = True
 
     try: 
-        from git import has_additional
+        from additional import has_additional
     except: 
         load_file_git(Dependencies.path_to, 'additional.py')
         is_downloaded = True
 
     if (is_downloaded): create_exe(Dependencies.path_to)
 
+    return Dependencies
 
 def main():
 
-    Dependencies = None
-    check_files(Dependencies)
+    Dependencies = check_files()
     
     if (update_project(Dependencies.path_to, Dependencies.files)): return
     

@@ -73,3 +73,5 @@ def update_project(path_to, files):
     print('Требуется перезагрузка...')
     time.sleep(1000)
     return True
+
+# Test

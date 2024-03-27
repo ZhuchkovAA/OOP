@@ -14,11 +14,8 @@ def load_file_git(path_to, file_name):
     url = f"https://raw.githubusercontent.com/ZhuchkovAA/OOP/main/renamer/{file_name}"
     response = requests.get(url)
     if response.status_code == 200:
-        with open(path_to['root'] + file_name, 'w', encoding='utf8') as file:
+        with open(path_to['root'] + file_name, 'x', encoding='utf8') as file:
             file.write(response.text)
-            print(f'File "{file_name}" downloaded')
-    else:
-        print(f'Not found file "{file_name}" on git')
 
 def replace_name(name, names, root):
     path_ = {

@@ -27,6 +27,7 @@ def get_file_git():
 def get_file_local(path_to):
     with open(path_to['root'] + 'main.py', "r", encoding='utf8') as file:
         return file.read()
+    return None
 
 def is_equal_files(path_to):
     git = get_file_git()
@@ -46,6 +47,8 @@ def create_exe(path_to):
         # subprocess.Popen("dist/main_ref.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
         # shutil.move('dist/main.exe', 'main.exe')
         # shutil.rmtree("dist")
+        shutil.rmtree("build")
+        os.remove('main.spec')
         shutil.rmtree(path_to['root'] + "build")
         os.remove(path_to['root'] + 'main.spec')
         shutil.rmtree(path_to['root'] + "__pycache__")
@@ -138,11 +141,14 @@ def main():
         'directory' : None 
     }
 
-    is_exe = os.path.basename(__file__).split('.')[-1] == 'exe'
+    is_exe = True
+
     path_to = {}
     if (is_exe): path_to['root'] = '../'
     else: path_to['root'] = ''
+
     if (update_project(path_to)): return
+    
     print('\nПеред изменением имени файлов рекомендуется:\n    1. Закрыть Visual Studio\n    2. Удалить папки x64, bin, obj, .vs\n')
 
     data['directory'] = input("Директория с проектом: ").replace("\\", "/")

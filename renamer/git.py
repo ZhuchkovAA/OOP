@@ -67,11 +67,10 @@ def update_project(path_to, files):
     for files in response['files']:
         with open(path_to['root'] + files['name'], 'w', encoding='utf8') as file:
             file.write(files['git'])
+            print(files['name'])
 
     create_exe(path_to)
 
     print('Требуется перезагрузка...')
     time.sleep(1000)
     return True
-
-# Test

@@ -10,5 +10,3 @@ def animated_loading():
         sys.stdout.write('\r'+'loading...'+char)
         time.sleep(.1)
         sys.stdout.flush()
-
-# Test

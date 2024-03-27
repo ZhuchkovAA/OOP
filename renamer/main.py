@@ -44,15 +44,15 @@ def is_equal_files(path_to):
 def create_exe(path_to):
     subprocess.run(["pyinstaller", "--onefile", (path_to['root'] + 'main.py')], check=True)
 
-    try: 
-        # subprocess.Popen("dist/main_ref.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
-        shutil.move(path_to['root'] + 'dist/main_ref.exe', 'main_ref.exe')
-        shutil.rmtree(path_to['root'] + "dist")
-        shutil.rmtree(path_to['root'] + "build")
-        os.remove(path_to['root'] + 'main.spec')
-        shutil.rmtree(path_to['root'] + "__pycache__")
-    except:
-        pass
+    # try: 
+    #     # subprocess.Popen("dist/main_ref.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
+    #     shutil.move(path_to['root'] + 'dist/main_ref.exe', 'main_ref.exe')
+    #     shutil.rmtree(path_to['root'] + "dist")
+    #     shutil.rmtree(path_to['root'] + "build")
+    #     os.remove(path_to['root'] + 'main.spec')
+    #     shutil.rmtree(path_to['root'] + "__pycache__")
+    # except:
+    #     pass
 
 def update_project(path_to):
     print('Проверка обновлений...')

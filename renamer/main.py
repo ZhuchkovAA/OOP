@@ -44,11 +44,11 @@ def create_exe(path_to):
 
     try: 
         # subprocess.Popen("dist/main_ref.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
-        shutil.move('dist/main.exe', 'main.exe')
-        shutil.rmtree("dist")
-        shutil.rmtree("build")
-        os.remove('main.spec')
-        shutil.rmtree("__pycache__")
+        # shutil.move('dist/main.exe', 'main.exe')
+        # shutil.rmtree("dist")
+        shutil.rmtree(path_to['root'] + "build")
+        os.remove(path_to['root'] + 'main.spec')
+        shutil.rmtree(path_to['root'] + "__pycache__")
     except:
         pass
 

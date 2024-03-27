@@ -7,7 +7,9 @@ import time
 import sys
 import subprocess
 
-# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился..
+# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился.
+
+is_exe = os.path.basename(__file__) == 'main.exe'
 
 def animated_loading():
     chars = "/—\|" 
@@ -24,13 +26,13 @@ def get_file_git():
     else:
         return None
 
-def get_file_local():
-    with open('main.py', "r", encoding='utf8') as file:
+def get_file_local(path_to):
+    with open(path_to['root'] + 'main.py', "r", encoding='utf8') as file:
         return file.read()
 
-def is_equal_files():
+def is_equal_files(path_to):
     git = get_file_git()
-    local = get_file_local()
+    local = get_file_local(path_to)
 
     if git == None: 
         print('Ошибка сети..')
@@ -39,29 +41,29 @@ def is_equal_files():
     if (hash(git) == hash(local)): return { 'success' : True }
     return { 'success' : False,  'files' : {'git' : git, 'local' : local}}
 
-def create_exe():
-    subprocess.run(["pyinstaller", "--onefile", "main_ref.py"], check=True)
+def create_exe(path_to):
+    subprocess.run(["pyinstaller", "--onefile", (path_to['root'] + 'main.py')], check=True)
 
     try: 
         # subprocess.Popen("dist/main_ref.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
-        shutil.move('dist/main_ref.exe', 'main_ref.exe')
-        shutil.rmtree("dist")
-        shutil.rmtree("build")
-        os.remove('main.spec')
-        shutil.rmtree("__pycache__")
+        shutil.move(path_to['root'] + 'dist/main_ref.exe', 'main_ref.exe')
+        shutil.rmtree(path_to['root'] + "dist")
+        shutil.rmtree(path_to['root'] + "build")
+        os.remove(path_to['root'] + 'main.spec')
+        shutil.rmtree(path_to['root'] + "__pycache__")
     except:
         pass
 
-def update_project():
+def update_project(path_to):
     print('Проверка обновлений...')
-    response = is_equal_files() 
+    response = is_equal_files(path_to) 
     if response['success']: return False
 
     print('Установка обновлений...')
 
-    with open('main_ref.py', 'w', encoding='utf8') as file:
+    with open((path_to['root'] + 'main.py'), 'w', encoding='utf8') as file:
         file.write(response['files']['git'])
-        create_exe()
+        create_exe(path_to)
 
     print('Требуестся перезагрузка...')
     time.sleep(1000)
@@ -137,6 +139,9 @@ def main():
         },
         'directory' : None 
     }
+
+    if (is_exe): path_to['root'] = '../'
+    else: path_to['root'] = ''
 
     if (update_project()): return
         

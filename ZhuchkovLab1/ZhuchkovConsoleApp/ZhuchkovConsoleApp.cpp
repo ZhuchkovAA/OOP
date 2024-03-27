@@ -39,8 +39,8 @@ int main()
 {
     HANDLE confirmEvent = ::CreateEvent(NULL, FALSE, FALSE, "ConfirmEvent");
     HANDLE startEvent = ::CreateEvent(NULL, FALSE, FALSE, "StartEvent");
-    HANDLE stopEvent = ::CreateEvent(NULL, FALSE, FALSE, "CloseProcTest");
-    HANDLE exitEvent = ::CreateEvent(NULL, FALSE, FALSE, "ExitProcTest");
+    HANDLE stopEvent = ::CreateEvent(NULL, FALSE, FALSE, "CloseProcZhuchkov");
+    HANDLE exitEvent = ::CreateEvent(NULL, FALSE, FALSE, "ExitProcZhuchkov");
 
 	HANDLE events[3];
 	events[0] = exitEvent;

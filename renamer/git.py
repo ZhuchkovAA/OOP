@@ -13,13 +13,14 @@ def get_file_git():
     else:
         return None
 
-def get_file_local():
-    with open('main.py', "r", encoding='utf8') as file:
+def get_file_local(path_to):
+    with open(path_to['root'] + 'main.py', "r", encoding='utf8') as file:
         return file.read()
+    return None
 
-def is_equal_files():
+def is_equal_files(path_to):
     git = get_file_git()
-    local = get_file_local()
+    local = get_file_local(path_to)
 
     if git == None: 
         print('Ошибка сети..')
@@ -28,30 +29,30 @@ def is_equal_files():
     if (hash(git) == hash(local)): return { 'success' : True }
     return { 'success' : False,  'files' : {'git' : git, 'local' : local}}
 
-def create_exe():
-    subprocess.run(["pyinstaller", "main.py"], check=True)
+def create_exe(path_to):
+    subprocess.run(["pyinstaller", "--onefile", path_to['root'] + 'main.py'], check=True)
 
-    shutil.move('dist/main.exe', 'main.exe')
-    shutil.rmtree("dist")
-    shutil.rmtree("build")
-    shutil.rmtree("__pycache__")
-    os.remove('main.spec')
+    try: 
+        shutil.rmtree("dist")
+        shutil.rmtree("build")
+        os.remove('main.spec')
+        shutil.rmtree(path_to['root'] + "build")
+        os.remove(path_to['root'] + 'main.spec')
+        shutil.rmtree(path_to['root'] + "__pycache__")
+    except:
+        pass
 
-def update_project():
+def update_project(path_to):
     print('Проверка обновлений...')
-    response = is_equal_files() 
+    response = is_equal_files(path_to) 
     if response['success']: return False
 
     print('Установка обновлений...')
-    with open('main.py', 'w', encoding='utf8') as file:
-        file.write(response['files']['git'])
-        # create_exe()
 
-    print('Требуестся перезагрузка...')
+    with open(path_to['root'] + 'main.py', 'w', encoding='utf8') as file:
+        file.write(response['files']['git'])
+        create_exe(path_to)
+
+    print('Требуется перезагрузка...')
     time.sleep(1000)
     return True
-
-
-
-
-     

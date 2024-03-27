@@ -7,7 +7,7 @@ import time
 import sys
 import subprocess
 
-# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился.
+# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился
 
 is_exe = os.path.basename(__file__) == 'main.exe'
 
@@ -140,10 +140,11 @@ def main():
         'directory' : None 
     }
 
+    path_to = {}
     if (is_exe): path_to['root'] = '../'
     else: path_to['root'] = ''
 
-    if (update_project()): return
+    if (update_project(path_to)): return
         
     print('\nПеред изменением имени файлов рекомендуется:\n    1. Закрыть Visual Studio\n    2. Удалить папки x64, bin, obj, .vs\n')
 

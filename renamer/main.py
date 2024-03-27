@@ -7,8 +7,8 @@ import time
 import sys
 import subprocess
 
-from git import update_project
-from additional import animated_loading 
+from git import update_project, has_git
+from additional import animated_loading, has_additional
 
 # Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился, а ебаться с этим желания ноль..
 
@@ -89,6 +89,12 @@ def main():
     path_to = {}
     if (is_exe): path_to['root'] = '../'
     else: path_to['root'] = ''
+
+    try:
+        has_git()
+        has_additional()
+    except:
+        print('Идут технические работы..')
 
     if (update_project(path_to)): return
     

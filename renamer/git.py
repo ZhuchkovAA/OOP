@@ -5,6 +5,9 @@ import time
 import shutil
 import os
 
+def has_git():
+    return True
+
 def get_file_git(file_name):
     url = f"https://raw.githubusercontent.com/ZhuchkovAA/OOP/main/renamer/{file_name}"
     response = requests.get(url)
@@ -18,9 +21,8 @@ def get_file_local(path_to, file_name):
         return file.read()
     return None
 
-def is_equal_files(path_to):
-    files = ['main.py', 'git.py', 'additional.py']
-    files = ['main.py']
+def is_equal_files(path_to, files):
+    not_equal_files = []
     for file in files:
 
         git_file = get_file_git(file)
@@ -30,9 +32,13 @@ def is_equal_files(path_to):
             print('Ошибка сети..')
             return { 'success' : True }
 
-        if (hash(git_file) == hash(local)): return { 'success' : True }
+        if (hash(git_file) != hash(local)):
+            not_equal_files.append({'name': file, 'git' : git_file, 'local' : local}) 
+    
+    if (len(not_equal_files)):
+        return { 'success' : True }
 
-    return { 'success' : False,  'files' : {'git' : git_file, 'local' : local}}
+    return { 'success' : False,  'files' : not_equal_files}
 
 def create_exe(path_to):
     subprocess.run(["pyinstaller", "--onefile", path_to['root'] + 'main.py'], check=True)
@@ -48,15 +54,20 @@ def create_exe(path_to):
         pass
 
 def update_project(path_to):
+
+    files = ['main.py', 'git.py', 'additional.py']
     print('Проверка обновлений...')
+
     response = is_equal_files(path_to) 
     if response['success']: return False
 
     print('Установка обновлений...')
 
-    with open(path_to['root'] + 'main.py', 'w', encoding='utf8') as file:
-        file.write(response['files']['git'])
-        create_exe(path_to)
+    for files in response['files']:
+        with open(path_to['root'] + files['name'], 'w', encoding='utf8') as file:
+            file.write(files['git'])
+            
+    create_exe(path_to)
 
     print('Требуется перезагрузка...')
     time.sleep(1000)

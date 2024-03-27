@@ -81,8 +81,9 @@ def replace_name(name, names, root):
         'new' : None
     }
 
+    path_['old'] = os.path.join(root, names['old'])
+
     if name['old'] in names['old']:
-        path_['old'] = os.path.join(root, names['old'])
         names['new'] = names['old'].replace(name['old'], name['new']) 
         path_['new'] = os.path.join(root, names['new'])
         os.rename(path_['old'], path_['new'])

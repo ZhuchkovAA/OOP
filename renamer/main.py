@@ -7,7 +7,7 @@ import time
 import sys
 import subprocess
 
-# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился
+# Для особо одарённых, я засунул всё в один файл тупо из-за того что exe нормально не компилился..
 
 def animated_loading():
     chars = "/—\|" 
@@ -44,8 +44,6 @@ def create_exe(path_to):
     subprocess.run(["pyinstaller", "--onefile", path_to['root'] + 'main.py'], check=True)
 
     try: 
-        # subprocess.Popen("dist/main_ref.exe", creationflags=subprocess.CREATE_NEW_CONSOLE)
-        # shutil.move('dist/main.exe', 'main.exe')
         shutil.rmtree("dist")
         shutil.rmtree("build")
         os.remove('main.spec')
@@ -62,11 +60,11 @@ def update_project(path_to):
 
     print('Установка обновлений...')
 
-    with open('main.py', 'w', encoding='utf8') as file:
+    with open(path_to['root'] + 'main.py', 'w', encoding='utf8') as file:
         file.write(response['files']['git'])
         create_exe(path_to)
 
-    print('Требуестся перезагрузка...')
+    print('Требуется перезагрузка...')
     time.sleep(1000)
     return True
 

@@ -84,22 +84,26 @@ def check_files():
         from dependencies import Dependencies
     except: 
         load_file_git({'root' : '../'}, 'dependencies.py')
+        print('dependencies.py downloaded successfully')
         from dependencies import Dependencies
         is_downloaded = True
 
     Dependencies = Dependencies()
 
     try: 
-        from git import create_exe
         from git import has_git
     except: 
         load_file_git(Dependencies.path_to, 'git.py')
+        print('git.py downloaded successfully')
         is_downloaded = True
+
+    from git import create_exe
 
     try: 
         from additional import has_additional
     except: 
         load_file_git(Dependencies.path_to, 'additional.py')
+        print('additional.py downloaded successfully')
         is_downloaded = True
 
     if (is_downloaded): create_exe(Dependencies.path_to)

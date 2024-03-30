@@ -83,8 +83,6 @@ def rename_project(directory, name_project):
     return counter
 
 def add_dependencies():
-    is_downloaded = False
-
     try: 
         import dependencies
         if (dependencies.Dependencies().version != '1.0.2'): raise Exception('Not actual version')
@@ -95,11 +93,7 @@ def add_dependencies():
     from dependencies import Dependencies 
     Dependencies = Dependencies()
     
-    classes_dependencies = Dependencies.load_dependencies(is_downloaded)
-
-    if (is_downloaded):
-        from git import create_exe
-        create_exe(Dependencies.path_to)
+    classes_dependencies = Dependencies.load_dependencies()
 
     return [ Dependencies, classes_dependencies]
 

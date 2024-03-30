@@ -13,7 +13,7 @@ class Dependencies:
         if (self.is_exe): self.path_to['root'] = '../'
         else: self.path_to['root'] = ''
 
-    def load_dependencies(self, is_downloaded, is_test=False):
+    def load_dependencies(self, is_test=False):
         result = {}
 
         from main import load_file_git
@@ -24,7 +24,6 @@ class Dependencies:
             except:
                 if (is_test): continue
                 load_file_git(self.path_to, module_name + '.py')
-                is_downloaded = True
 
         for module_class_name in self.files['classes']:
             try:
@@ -34,6 +33,9 @@ class Dependencies:
             except:
                 if (is_test): continue
                 load_file_git(self.path_to, module_class_name + '.py')
-                is_downloaded = True
+
+            import_module = __import__(module_class_name)
+            module_class = getattr(import_module, module_class_name.capitalize())
+            result[module_class_name] = module_class()
 
         return result

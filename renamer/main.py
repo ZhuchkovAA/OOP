@@ -109,14 +109,14 @@ def main():
     try:
         Structures = classes_dependencies['structures']
     except:
-        print('Зависимости не подгрузились')
+        print('Не все зависимости подгрузились. Обратитесь к @ZhuchkovAA')
         time.sleep(100)
         return
 
     from git import update_project
     from additional import animated_loading
 
-    if (update_project(Dependencies.path_to, Dependencies.files['all'])): return
+    update_project(Dependencies.path_to, Dependencies.files['all'])
 
     print(f'Version: {Dependencies.version}')
     print('\nПеред изменением имени файлов рекомендуется:\n    1. Закрыть Visual Studio\n    2. Удалить папки x64, bin, obj, .vs\n')

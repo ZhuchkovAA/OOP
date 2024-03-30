@@ -7,9 +7,6 @@ import time
 import sys
 import subprocess
 
-from git import update_project
-from additional import animated_loading
-
 def load_file_git(path_to, file_name):
     url = f"https://raw.githubusercontent.com/ZhuchkovAA/OOP/main/renamer/{file_name}"
     response = requests.get(url)
@@ -92,10 +89,10 @@ def add_dependencies():
         import dependencies
         if (dependencies.Dependencies().version != '1.0.1'): raise Exception('Not actual version')
     except:
-        load_file_git({'root' : '../'}, 'dependencies.py')
+        load_file_git({'root' : '/'}, 'dependencies.py')
         is_downloaded = True
 
-    from dependencies import Dependencies
+    from dependencies import Dependencies 
     Dependencies = Dependencies()
     
     classes_dependencies = Dependencies.load_dependencies(is_downloaded)
@@ -115,6 +112,9 @@ def main():
         print('Зависимости не подгрузились')
         time.sleep(100)
         return
+
+    from git import update_project
+    from additional import animated_loading
 
     if (update_project(Dependencies.path_to, Dependencies.files['all'])): return
 

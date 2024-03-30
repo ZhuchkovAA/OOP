@@ -90,7 +90,7 @@ def add_dependencies():
 
     try: 
         import dependencies
-        if (dependencies.Dependencies().version != '1.0.0'): raise Exception('Not actual version')
+        if (dependencies.Dependencies().version != '1.0.1'): raise Exception('Not actual version')
     except:
         load_file_git({'root' : '../'}, 'dependencies.py')
         is_downloaded = True

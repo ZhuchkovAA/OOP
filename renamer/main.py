@@ -107,8 +107,6 @@ def add_dependencies():
     return [ Dependencies, classes_dependencies]
 
 def main():
-
-
     Dependencies, classes_dependencies = add_dependencies()
 
     try:
@@ -118,7 +116,7 @@ def main():
         time.sleep(100)
         return
 
-    # if (update_project(Dependencies.path_to, Dependencies.files['all'])): return
+    if (update_project(Dependencies.path_to, Dependencies.files['all'])): return
 
     print(f'Version: {Dependencies.version}')
     print('\nПеред изменением имени файлов рекомендуется:\n    1. Закрыть Visual Studio\n    2. Удалить папки x64, bin, obj, .vs\n')

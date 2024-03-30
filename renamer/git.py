@@ -16,7 +16,7 @@ def get_file_git(file_name):
         return None
 
 def get_file_local(path_to, file_name):
-    with open(path_to['root'] + file_name, "r", encoding='utf8') as file:
+    with open(file_name, "r", encoding='utf8') as file:
         return file.read()
     return None
 
@@ -66,7 +66,7 @@ def update_project(path_to, files):
         with open(files['name'], 'w+', encoding='utf8') as file:
             file.write(files['git'])
 
-    create_exe(path_to)
+    # create_exe(path_to)
 
     print('Требуется перезагрузка...')
     time.sleep(1000)

@@ -33,9 +33,9 @@ def is_equal_files(path_to, files):
 
         if (hash(git_file) != hash(local)):
             not_equal_files.append({'name': file, 'git' : git_file, 'local' : local}) 
-    
+            print('Загрузка..', file)
+
     if (len(not_equal_files)):
-        print('Загрузка..', not_equal_files)
         return { 'success' : True }
 
     return { 'success' : False,  'files' : not_equal_files}

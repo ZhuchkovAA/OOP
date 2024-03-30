@@ -7,9 +7,6 @@ import time
 import sys
 import subprocess
 
-def has_git():
-    return True
-
 def get_file_git(file_name):
     url = f"https://raw.githubusercontent.com/ZhuchkovAA/OOP/main/renamer/{file_name}"
     response = requests.get(url)

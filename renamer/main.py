@@ -42,16 +42,23 @@ def replace_name(name, names, root):
 
 def rename_project(directory, name_project):
     counter = {
-        'general': 0,
-        'success': 0,
-        'fail': 0
+        'files': {
+            'general': 0,
+            'success': 0,
+            'fail': 0
+        },
+        'dirs': {
+            'general': 0,
+            'success': 0,
+            'fail': 0
+        }
     }
 
     animated_loading()
 
     for root, dirs, files in os.walk(directory):
         for filename in files:
-            counter['general'] += 1
+            counter['files']['general'] += 1
             try:
                 result = replace_name(name_project, filename, root)
                 path_ = result['path']
@@ -62,76 +69,75 @@ def rename_project(directory, name_project):
                 with open(path_['new'], 'w') as file:
                     file.write(content)
 
-                counter['success'] += 1
+                counter['files']['success'] += 1
             except:
-                counter['fail'] += 1
+                counter['files']['fail'] += 1
 
         for foldername in dirs:
+            counter['dirs']['general'] += 1
             try:
                 result = replace_name(name_project, foldername, root)
                 path_ =  result['path']
-
                 rename_project(path_['new'], name_project)
+                counter['dirs']['success'] += 1
             except:
-                pass
+                counter['dirs']['fail'] += 1
 
     return counter
 
-def check_files():
+def add_dependencies():
     is_downloaded = False
 
     try: 
-        from dependencies import Dependencies
-    except: 
+        import dependencies
+        if (dependencies.Dependencies().version != '1.0.0'): raise Exception('Not actual version')
+    except:
         load_file_git({'root' : '../'}, 'dependencies.py')
-        print('dependencies.py downloaded successfully')
-        from dependencies import Dependencies
         is_downloaded = True
 
+    from dependencies import Dependencies
     Dependencies = Dependencies()
+    
+    classes_dependencies = Dependencies.load_dependencies(is_downloaded)
 
-    try: 
-        from git import has_git
-    except: 
-        load_file_git(Dependencies.path_to, 'git.py')
-        print('git.py downloaded successfully')
-        is_downloaded = True
+    if (is_downloaded):
+        from git import create_exe
+        create_exe(Dependencies.path_to)
 
-    from git import create_exe
-
-    try: 
-        from additional import has_additional
-    except: 
-        load_file_git(Dependencies.path_to, 'additional.py')
-        print('additional.py downloaded successfully')
-        is_downloaded = True
-
-    if (is_downloaded): create_exe(Dependencies.path_to)
-
-    return Dependencies
+    return [ Dependencies, classes_dependencies]
 
 def main():
 
-    Dependencies = check_files()
-    
-    if (update_project(Dependencies.path_to, Dependencies.files)): return
-    
+
+    Dependencies, classes_dependencies = add_dependencies()
+
+    try:
+        Structures = classes_dependencies['structures']
+    except:
+        print('Зависимости не подгрузились')
+        time.sleep(100)
+        return
+
+    # if (update_project(Dependencies.path_to, Dependencies.files['all'])): return
+
+    print(f'Version: {Dependencies.version}')
     print('\nПеред изменением имени файлов рекомендуется:\n    1. Закрыть Visual Studio\n    2. Удалить папки x64, bin, obj, .vs\n')
 
-    Dependencies.data['directory'] = input("Директория с проектом: ").replace("\\", "/")
-    Dependencies.data['name_project']['old'] = input("Старая Фамилия: ")
-    Dependencies.data['name_project']['new'] = input("Новая Фамилия: ")
+    Structures.replaсe_data['directory'] = input("Директория с проектом: ").replace("\\", "/")
+    Structures.replaсe_data['name_project']['old'] = input("Старая Фамилия: ")
+    Structures.replaсe_data['name_project']['new'] = input("Новая Фамилия: ")
 
-    if (input(f"\n\nДиректория: {Dependencies.data['directory']}\n{Dependencies.data['name_project']['old']} меняю на {Dependencies.data['name_project']['new']}\n                 [yes/no]: ") in ['y', 'yes']):
-        counter = rename_project(Dependencies.data['directory'], Dependencies.data['name_project'])
-        print(f"\nВсего: {counter['general']}\nУспешно заменили: {counter['success']}\nНе удалось открыть: {counter['fail']}")
+    if (input(f"\n\nДиректория: {Structures.replaсe_data['directory']}\n{Structures.replaсe_data['name_project']['old']} меняю на {Structures.replaсe_data['name_project']['new']}\n                 [yes/no]: ") in ['y', 'yes']):
+        counter = rename_project(Structures.replaсe_data['directory'], Structures.replaсe_data['name_project'])
+        print(f"\nВсего Файлов: {counter['files']['general']}\nУспешно заменили: {counter['files']['success']}\nНе удалось открыть: {counter['files']['fail']}")
+        print(f"\nВсего Папок: {counter['dirs']['general']}\nУспешно заменили: {counter['dirs']['success']}\nНе удалось открыть: {counter['dirs']['fail']}")
 
         print('\nP.S. Файлы которые не удалось открыть - скорее всего служебные/результат сборки, в них нет Фамилии автора.')
     else:
         print('Завершение программы...')
 
     print("\n\nGitHub: https://github.com/ZhuchkovAA")
-    time.sleep(3)
+    time.sleep(100)
 
 if __name__ == '__main__':
     main()

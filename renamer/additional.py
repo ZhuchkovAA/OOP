@@ -1,9 +1,6 @@
 import time
 import sys
 
-def has_additional():
-    return True
-
 def animated_loading():
     chars = "/—\|" 
     for char in chars:

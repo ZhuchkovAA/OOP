@@ -60,11 +60,8 @@ def update_project(path_to, files):
     response = is_equal_files(path_to, files) 
     if response['success']: return False
 
-    print('Установка обновлений...')
-
     for files in response['files']:
         print(files['name'])
         with open(files['name'], 'w+', encoding='utf8') as file:
             file.write(files['git'])
-
     return False

@@ -1,6 +1,6 @@
 class Dependencies:
     def __init__(self):
-        self.version = '1.0.1'
+        self.version = '1.0.2'
         
         self.is_exe = True
         self.files = { 

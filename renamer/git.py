@@ -68,6 +68,6 @@ def update_project(path_to, files):
 
     # create_exe(path_to)
 
-    print('Требуется перезагрузка...')
-    time.sleep(1000)
-    return True
+    # print('Требуется перезагрузка...')
+    # time.sleep(1000)
+    return False

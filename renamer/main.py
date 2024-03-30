@@ -15,7 +15,7 @@ def load_file_git(path_to, file_name):
     response = requests.get(url)
 
     if response.status_code == 200:
-        with open(path_to['root'] + file_name, 'w', encoding='utf8') as file:
+        with open(file_name, 'w+', encoding='utf8') as file:
             file.write(response.text)
 
 def replace_name(name, names, root):

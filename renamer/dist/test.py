@@ -1,9 +1,8 @@
-import sys
-sys.path.append('../')  # Добавляем путь к каталогу, содержащему модуль
 
-test = False
+print('Установка обновлений...')
 
-from dependencies import Dependencies
-Dependencies = Dependencies()
+for files in [{'name' : 'testtt.py', 'git' : 'testtt'}]:
+    print(files['name'])
+    with open(files['name'], 'w+', encoding='utf8') as file:
+        file.write(files['git'])
 
-classes_dependencies = Dependencies.has_dependencies(is_downloaded)

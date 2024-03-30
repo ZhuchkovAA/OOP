@@ -5,7 +5,7 @@ class Dependencies:
         self.is_exe = True
         self.files = { 
             'all': ['main.py', 'git.py', 'additional.py', 'dependencies.py', 'structures.py'],
-            'dependencies': ['git', 'additional', 'structuresss'],
+            'dependencies': ['git', 'additional'],
             'classes': ['structures']
         }
 

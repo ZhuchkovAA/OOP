@@ -85,7 +85,7 @@ def rename_project(directory, name_project):
 def add_dependencies():
     try: 
         import dependencies
-        if (dependencies.Dependencies().version != '1.0.2'): raise Exception('Not actual version')
+        if (dependencies.Dependencies().version != '1.0.3'): raise Exception('Not actual version')
     except:
         load_file_git({'root' : '/'}, 'dependencies.py')
         is_downloaded = True

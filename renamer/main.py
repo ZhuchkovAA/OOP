@@ -51,7 +51,7 @@ def rename_project(directory, name_project):
         }
     }
 
-    animated_loading()
+    # animated_loading()
 
     for root, dirs, files in os.walk(directory):
         for filename in files:

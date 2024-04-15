@@ -51,8 +51,7 @@ def rename_project(directory, name_project):
         }
     }
 
-    from Additional import animated_loading
-    animated_loading()
+    # animated_loading()
 
     for root, dirs, files in os.walk(directory):
         for filename in files:
@@ -85,13 +84,13 @@ def rename_project(directory, name_project):
 
 def add_dependencies():
     try: 
-        import Dependencies
-        if (Dependencies.Dependencies().version != '1.0.3'): raise Exception('Not actual version')
-    except (Exception):
-        print(Exception)
-        load_file_git({'root' : '/'}, 'Dependencies.py')
+        import dependencies
+        if (dependencies.Dependencies().version != '1.0.3'): raise Exception('Not actual version')
+    except:
+        load_file_git({'root' : '/'}, 'dependencies.py')
+        is_downloaded = True
 
-    from Dependencies import Dependencies 
+    from dependencies import Dependencies 
     Dependencies = Dependencies()
     
     classes_dependencies = Dependencies.load_dependencies()
@@ -102,13 +101,14 @@ def main():
     Dependencies, classes_dependencies = add_dependencies()
 
     try:
-        Structures = classes_dependencies['Structures']
+        Structures = classes_dependencies['structures']
     except:
         print('Не все зависимости подгрузились. Обратитесь к @ZhuchkovAA')
         time.sleep(100)
         return
 
-    from Git import update_project
+    from git import update_project
+    from additional import animated_loading
 
     update_project(Dependencies.path_to, Dependencies.files['all'])
 

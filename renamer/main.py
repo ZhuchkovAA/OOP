@@ -47,7 +47,7 @@ def rename_project(directory, name_project):
         }
     }
 
-    additional.animated_loading()
+    # animated_loading()
 
     for root, dirs, files in os.walk(directory):
         for filename in files:
@@ -81,7 +81,7 @@ def rename_project(directory, name_project):
 def add_dependencies():
     try: 
         import dependencies
-        if (dependencies.Dependencies().version != '1.0.41'): raise Exception('Not actual version')
+        if (dependencies.Dependencies().version != '1.0.42'): raise Exception('Not actual version')
     except:
         load_file_git({'root' : '/'}, 'dependencies.py')
 

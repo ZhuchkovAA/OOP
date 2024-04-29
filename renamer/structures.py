@@ -8,6 +8,3 @@ class Structures:
             },
             'directory' : None 
         }
-
-    def test(self):
-        print('test')

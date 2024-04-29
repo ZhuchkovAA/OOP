@@ -1,6 +1,6 @@
 class Dependencies:
     def __init__(self):
-        self.version = '1.0.3'
+        self.version = '1.0.4'
         
         self.is_exe = True
         self.files = { 
@@ -14,11 +14,13 @@ class Dependencies:
         else: self.path_to['root'] = ''
 
     def load_libs(self):
-        os.system('pip install requests')
+        import os
+        os.system('pip install requests==2.31.0')
 
     def load_dependencies(self, is_test=False):
         result = {}
 
+        print('Загрузка библиотек...')
         self.load_libs()
 
         from main import load_file_git

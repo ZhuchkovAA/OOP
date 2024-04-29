@@ -29,9 +29,9 @@ def is_equal_files(path_to, files):
 
         if (hash(git_file) != hash(local)):
             not_equal_files.append({'name': file, 'git' : git_file, 'local' : local}) 
-            print('Загрузка..', file)
+            print(f'Загрузка {file}')
 
-    if (len(not_equal_files)):
+    if (not len(not_equal_files)):
         return { 'success' : True }
 
     return { 'success' : False,  'files' : not_equal_files}
@@ -44,7 +44,6 @@ def update_project(path_to, files):
     if response['success']: return False
 
     for files in response['files']:
-        print(files['name'])
-        with open(files['name'], 'w+', encoding='utf8') as file:
+        with open(files['name'], 'w', encoding='utf8') as file:
             file.write(files['git'])
     return False

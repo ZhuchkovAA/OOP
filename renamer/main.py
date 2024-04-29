@@ -51,7 +51,7 @@ def rename_project(directory, name_project):
         }
     }
 
-    # animated_loading()
+    additional.animated_loading()
 
     for root, dirs, files in os.walk(directory):
         for filename in files:
@@ -88,11 +88,10 @@ def add_dependencies():
         if (dependencies.Dependencies().version != '1.0.3'): raise Exception('Not actual version')
     except:
         load_file_git({'root' : '/'}, 'dependencies.py')
-        is_downloaded = True
 
     from dependencies import Dependencies 
     Dependencies = Dependencies()
-    
+
     classes_dependencies = Dependencies.load_dependencies()
 
     return [ Dependencies, classes_dependencies]

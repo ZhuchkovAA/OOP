@@ -1,11 +1,7 @@
 import requests
-import subprocess
 import time
-import shutil
 import os
-import time
 import sys
-import subprocess
 
 def get_file_git(file_name):
     url = f"https://raw.githubusercontent.com/ZhuchkovAA/OOP/main/renamer/{file_name}"
@@ -39,19 +35,6 @@ def is_equal_files(path_to, files):
         return { 'success' : True }
 
     return { 'success' : False,  'files' : not_equal_files}
-
-def create_exe(path_to):
-    subprocess.run(["pyinstaller", "--onefile", path_to['root'] + 'main.py'], check=True)
-
-    try: 
-        shutil.rmtree("dist")
-        shutil.rmtree("build")
-        os.remove('main.spec')
-        shutil.rmtree(path_to['root'] + "build")
-        os.remove(path_to['root'] + 'main.spec')
-        shutil.rmtree(path_to['root'] + "__pycache__")
-    except:
-        pass
 
 def update_project(path_to, files):
 

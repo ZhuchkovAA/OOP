@@ -13,8 +13,13 @@ class Dependencies:
         if (self.is_exe): self.path_to['root'] = '../'
         else: self.path_to['root'] = ''
 
+    def load_libs(self):
+        os.system('pip install requests')
+
     def load_dependencies(self, is_test=False):
         result = {}
+
+        self.load_libs()
 
         from main import load_file_git
 

@@ -1,11 +1,7 @@
 import requests
-import subprocess
 import time
-import shutil
 import os
-import time
 import sys
-import subprocess
 
 def load_file_git(path_to, file_name):
     url = f"https://raw.githubusercontent.com/ZhuchkovAA/OOP/main/renamer/{file_name}"
